@@ -1,0 +1,6 @@
+[submodule "TestBox"]
+	path = TestBox
+	url = git@github.com:jphustman/TestBox.git
+[submodule "app/model/services/chromelogger-cf"]
+	path = app/model/services/chromelogger-cf
+	url = git@github.com:s992/chromelogger-cf.git

@@ -1,0 +1,559 @@
+<form name="estimateform">
+	<div class="row">
+		<!--<div class='etravelLogin col-xs-3'><p>E-Travel Online Login</p></div>-->
+		<div class='col-xs-6'>
+			<button class="etravel-login"><span>E-Travel Online Login</span></button>
+		</div>
+		<div class='col-xs-6 form-group'>
+			<label class='control-label'>Travel Auth Number</label>
+			<p class="form-control-static">{{EstimateCtrl.ta.tanumber}}</p>
+		</div>
+		<div class='col-xs-6 form-group'>
+			<label for='travelerid'>Employee Number</label>
+			<input class="form-control" type='text' data-ng-model='EstimateCtrl.ta.travelerid' name='travelerid' id='travelerid' required>
+		</div>
+
+		<div class='col-xs-6 form-group'>
+			<label for='pvn'>PVN</label>
+			<input type='text' class="form-control" name='pvn' id='pvn' data-ng-model='EstimateCtrl.ta.pvn'>
+		</div>
+	</div>
+	<!--<fieldset class="reqInfo">-->
+	<!--<fieldset class="reqInfo">-->
+	<!--<legend class="ui-widget-header">Traveller Information</legend>-->
+	<div class="row">
+		<h3 class="col-xs-10">Traveler Information</h3>
+		<div cg-busy="pleaseWaitTop"></div>
+		<button type="submit" class="btn btn-default col-xs-8 col-xs-offset-6" data-ng-click="EstimateCtrl.send(EstimateCtrl.taid)">Generate PDF and Send for Approval</button>
+	</div>
+	<div class="row">
+		<div class="list-group">
+			<div class="list-group-item col-xs-24">
+				<p class="col-xs-18">Is the traveler a State Employee (EE) or a Non-Employee (EE)?</p>
+				<div class="col-xs-6">
+					<label class="radio-inline">
+						<input type="radio" name="ee" data-ng-model="EstimateCtrl.ta.ee" data-ng-value="true">
+						State EE
+					</label>
+					<label class="radio-inline">
+						<input type="radio" name="ee" data-ng-model="EstimateCtrl.ta.ee" data-ng-value="false">
+						Non-EE
+					</label>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="list-group">
+			<div class="list-group-item col-xs-24">
+				<p class="col-xs-18 btn-group-sm">Is this form for in-state (intra-Alaska) travel or travel outside of Alaska?
+					<button data-ng-hide="EstimateCtrl.ta.instate" type="button" class="btn btn-default ng-cloak" data-ng-click="EstimateCtrl.openOOStateForm()">View Questionnaire</button>
+				</p>
+				<div class="col-xs-6">
+					<label class="radio-inline">
+						<input type="radio" name="instate" data-ng-model="EstimateCtrl.ta.instate" data-ng-value="true">
+						In-State
+					</label>
+
+					<label class="radio-inline">
+						<input type="radio" name="instate" data-ng-model="EstimateCtrl.ta.instate" data-ng-value="false">
+						Out-of-State
+					</label>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="list-group">
+			<div class="list-group-item col-xs-24">
+				<p class="col-xs-19">Does the Traveler's Physical Home Address need to be provided on the form?</p>
+				<div class="col-xs-5">
+					<label class="radio-inline">
+						<input type="radio" name="physaddr" data-ng-model="EstimateCtrl.ta.physaddr" data-ng-value="true">
+						Yes
+					</label>
+					<label class="radio-inline">
+						<input type="radio" name="physaddr" data-ng-model="EstimateCtrl.ta.physaddr" data-ng-value="false">
+						No
+					</label>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="list-group">
+			<div class="list-group-item col-xs-24">
+				<p class="col-xs-19">Is the Warrant Mailing Address different than the mailing address on the Traveler's PVN record?</p>
+				<div class="col-xs-5">
+					<label class="radio-inline">
+						<input type="radio" name="warrantaddr" data-ng-model="EstimateCtrl.ta.warrantaddr" data-ng-value="true">
+						Yes
+					</label>
+					<label class="radio-inline">
+						<input type="radio" name="warrantaddr" data-ng-model="EstimateCtrl.ta.warrantaddr" data-ng-value="false">
+						No
+					</label>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class='row'>
+		<div class='col-xs-6 form-group'>
+			<label for='travelername'>Name of Traveler</label>
+			<input class='form-control' type='text' id='travelername' name='travelername' data-ng-value="EstimateCtrl.ta.travelername">
+		</div>
+		<div class='col-xs-6 form-group'>
+			<label for='title'>Title</label>
+			<input type='text' class='form-control' name='title' id='title' data-ng-value='EstimateCtrl.ta.title'>
+		</div>
+		<div class='col-xs-6 form-group'>
+			<label for='dept'>Department</label>
+			<input class='form-control' type='text' name='dept' id='dept' data-ng-value='EstimateCtrl.ta.dept'>
+		</div>
+		<div class='col-xs-6 form-group'>
+			<label for='div'>Division</label>
+			<input type='text' class='form-control' name='div' id='div' data-ng-value='EstimateCtrl.ta.div'>
+		</div>
+	</div>
+	<div class="row">
+
+		<div class='col-xs-6 form-group'>
+			<label for='bu'>Bargaining Unit</label>
+			<input class="form-control" type='text' name='bu' id='bu' data-ng-value='EstimateCtrl.ta.bu'>
+		</div>
+
+		<div class='col-xs-6 form-group'>
+			<label for='dutystation'>Duty Station</label>
+			<input type='text' name='dutystation' id='dutystation' class="form-control" data-ng-value='EstimateCtrl.ta.dutystation'>
+		</div>
+
+		<div class='col-xs-12'>
+			<strong class="col-xs-24">Normal Work Schedule (DOT Only)</strong>
+			<div class="row">
+				<label for='workdays' class="col-xs-4">Days:</label>
+				<input type='text' name='workdays' class="col-xs-7" id='workdays' data-ng-value='EstimateCtrl.ta.workdays'>
+				<label for='worktime' class="col-xs-4">Time:</label>
+				<input type='text' name='worktime' class="col-xs-8" id='worktime' data-ng-value='EstimateCtrl.ta.worktime'>
+			</div>
+		</div>
+	</div>
+  <div class="row">
+    <div class="col-xs-6 form-group">
+      <label for="departurefrom">Departing From:</label>
+      <input class="form-control" type="text" name="departurefrom" id="departurefrom" data-ng-value='EstimateCtrl.ta.departurefrom'>
+    </div>
+    <div class="col-xs-6">
+      <p class="input-group">
+        <label for="departuredate">Departure Date:</label>
+        <input type="text" class="form-control" name="departuredate" id="departuredate"
+            uib-datepicker-popup="MM/dd/yyyy"
+            data-is-open="EstimateCtrl.depart.opened"
+            data-max-date="EstimateCtrl.ta.returndate"
+            data-close-text="Close"
+            data-ng-model='EstimateCtrl.ta.departuredate'>
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-default estimate-datepicker"
+                data-ng-click="EstimateCtrl.depart.opened = true">
+              <i class="glyphicon glyphicon-calendar"></i>
+            </button>
+          </span>
+        </p>
+        <p class="help-block" data-ng-if="EstimateCtrl.ta.departuredate.$error.date">Not a valid date format.</p>
+      </div>
+
+
+      <div class="col-xs-6 form-group">
+        <label for="destinationTo">To (Destination):</label>
+        <input class="form-control" type="text" name="destinationto" id="destinationto" data-ng-value='EstimateCtrl.ta.destinationto'>
+      </div>
+      <div class="col-xs-6">
+        <p class="input-group">
+          <label for="returnDate">Return Date:</label>
+          <input class="form-control" type="text" name="returndate" id="returndate"
+            data-placeholder="mm/dd/yyyy"
+            uib-datepicker-popup="MM/dd/yyyy"
+            data-is-open="EstimateCtrl.return.opened"
+            data-min-date="EstimateCtrl.ta.departuredate"
+            data-close-text="Close"
+            data-ng-model="EstimateCtrl.ta.returndate">
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-default estimate-datepicker"
+                data-ng-click="EstimateCtrl.return.opened = true">
+              <i class="glyphicon glyphicon-calendar"></i>
+            </button>
+          </span>
+        </p>
+      </div>
+    </div>
+
+    <div id="physAddr" class="ng-cloak" data-ng-show="EstimateCtrl.ta.physaddr">
+      <div class='row'>
+        <div class='col-xs-6 form-group'>
+          <label for='homeaddress'>Physical Home Address</label><br>
+          <textarea class='form-control' name='homeaddress' id='homeaddress' data-ng-model='EstimateCtrl.ta.homeaddress'></textarea>
+        </div>
+
+        <div class='col-xs-6 form-group'>
+          <label for='homecity'>City</label><br>
+          <input type='text' class='form-control' name='homecity' id='homecity' data-ng-model='EstimateCtrl.ta.homecity'>
+        </div>
+
+        <div class='col-xs-6 form-group'>
+          <label for='homestate'>State</label><br>
+          <input type='text' class='form-control' name='homestate' id='homestate' data-ng-model='EstimateCtrl.ta.homestate'>
+        </div>
+
+        <div class='col-xs-6 form-group'>
+          <label for='homezip'>Zip Code</label><br>
+          <input type='text' class='form-control' name='homezip' id='homezip' data-ng-model='EstimateCtrl.ta.homezip'>
+        </div>
+      </div>
+    </div>
+    <div class='row'>
+
+      <!--<div class='col-xs-24'>
+      <label for='destination'>Destination(s):</label><br>
+      <textarea class='' id='destination' name='EstimateCtrl.ta.destination'></textarea>
+      </div>-->
+
+    <div class='col-xs-24 form-group'>
+      <label for='purpose'>Purpose of trip</label><br>
+      <textarea class='form-control' id='purpose' name='purpose' data-ng-model="EstimateCtrl.ta.purpose"></textarea>
+    </div>
+
+<!--<div class='col-xs-24'>
+<label for='travPref'>Travel Preferences:</label><br>
+<textarea class='' id='travPref' name='EstimateCtrl.ta.travPref'></textarea>
+</div>-->
+
+</div>
+
+<div class='row'>
+  <div class='col-xs-6 form-group'>
+    <span class=''>Request Includes Personal Travel</span><br>
+    <label for='perstravYes'>
+      <input type='radio' data-ng-model="EstimateCtrl.ta.perstrav" name='perstrav' id='perstravYes' data-ng-value="true">
+      Yes
+    </label>
+    <label for='perstravNo'>
+      <input type='radio' data-ng-model='EstimateCtrl.ta.perstrav' name='perstrav' id='perstravNo' data-ng-value="false">
+      No
+    </label>
+  </div>
+
+  <div id='persTravDetails' data-ng-show="EstimateCtrl.ta.perstrav" class="ng-cloak">
+    <div class='col-xs-6 form-group'>
+      <label for='perstravbegin'>Date Begins</label><br>
+      <input type='text' class='form-control' name='perstravbegin' id='perstravbegin' data-ng-model='EstimateCtrl.ta.perstravbegin'>
+    </div>
+
+    <div class='col-xs-6 form-group'>
+      <label for='perstravend'>Date Ends</label><br>
+      <input type='text' class='form-control' name='perstravend' id='perstravend' data-ng-model='EstimateCtrl.ta.perstravend'>
+    </div>
+
+    <div class='col-xs-6 form-group'>
+      <label for='perstravairfare'>State Authorized Airfare</label><br>
+      <input type='text' class='form-control' name='perstravairfare' id='perstravairfare' data-ng-model='EstimateCtrl.ta.perstravairfare'>
+    </div>
+  </div>
+</div>
+
+<div class='row'>
+  <div class="col-xs-12 financial-code-table">
+    <div class="">Financial Coding</div>
+    <div class="financial-code-body">
+      <div class="row-master hidden">
+        <input type="hidden" name="fincode.0.isNew" value="1">
+        <input class="fincodedata" type="text" name="fincode.0.code">
+        <div title='delete' class='delete'>
+          <span class='glyphicon glyphicon-remove-circle'></span>
+        </div>
+      </div>
+
+      <div data-ng-repeat="fcode in EstimateCtrl.fcodes">
+        <input type="hidden" name="" value="0">
+        <input class="fincodedata" type="text" data-ng-model="fcode.code" name="fcode">
+        <div title='delete' class='delete' data-ng-click='EstimateCtrl.delFinCode(fcode)'>
+          <span class='glyphicon glyphicon-remove-circle'></span>
+        </div>
+      </div>
+
+    </div>
+    <div class="financial-code-footer">
+      <button id="add-fincode" class="btn btn-default" data-ng-click="EstimateCtrl.addFincode()">Add Financial Code</button>
+    </div>
+  </div>
+
+  <div class='reqInc'>
+
+    <span>Request Includes:</span>
+    <label for='actualsreq'>Actuals
+      <input type='checkbox' name="actualsreq" data-ng-model="EstimateCtrl.ta.actualsreq" id='actualsreq' data-ng-value="true">
+    </label>
+    <label for='travadv'>Travel Advance
+      <input type='checkbox' name="travadv" data-ng-model="EstimateCtrl.ta.travadv" id='travadv' data-ng-value="true">
+    </label>
+
+    <hr>
+
+      <span>Hotel Required:</span>
+      <label for='hotelneededyes'>Yes
+        <input type='radio' name='EstimateCtrl.ta.hotelinc' data-ng-model='EstimateCtrl.ta.hotelinc' id='hotelneededyes' data-ng-value="true">
+      </label>
+      <label for='hotelNeededNo'>No
+        <input type='radio' name='EstimateCtrl.ta.hotelinc' data-ng-model='EstimateCtrl.ta.hotelinc' id='hotelneededno' data-ng-value="false">
+      </label>
+
+      <hr>
+
+        <span>Rental Car Required:</span>
+        <label for='vehicleneededyes'>Yes
+          <input type='radio' name='EstimateCtrl.ta.carinc' data-ng-model='EstimateCtrl.ta.carinc' id='vehicleneededyes' data-ng-value="true">
+        </label>
+        <label for='vehicleNeededNo'>No
+          <input type='radio' name='EstimateCtrl.ta.carinc' data-ng-model='EstimateCtrl.ta.carinc' id='vehicleneededno' data-ng-value="false">
+        </label>
+      </div>
+    </div>
+
+
+<h3>Expense Report</h3>
+<div class="row">
+  <h4 class="col-xs-18">Actual Travel, Per Diem, and Reimbursable Expenses (No One Card Charges)</h4>
+  <div class="col-xs-6">
+    <label for='mileageRate'>Mileage Rate: </label>
+    <input type='text' id='mileageRate' data-ng-value="EstimateCtrl.ta.mileagerate">
+  </div>
+</div>
+
+<div class="row" id="expenseTable">
+  <div class="col-xs-2"><span>Date</span></div>
+  <div class="col-xs-4"><span>Explanation</span></div>
+  <div class="col-xs-2"><span>Meals Prov</span></div>
+  <div class="col-xs-2"><span>Facility</span></div>
+  <div class="col-xs-2"><span>No. of Miles</span></div>
+  <div class="col-xs-4"><span style="display: block; text-align: center">Surface Trans</span>
+    <div class="row">
+      <div class="col-xs-12" style="border-right: 1px solid #D0">
+        Mileage
+      </div>
+      <div class="col-xs-12">
+        Other
+      </div>
+    </div>
+  </div>
+  <div class="col-xs-4"><span style="display: block; text-align: center">Per Diem</span>
+    <div class="row">
+      <div class="col-xs-12" style="border-right: 1px solid #D0">
+        Lodging
+      </div>
+      <div class="col-xs-12">
+        M&amp;IE
+      </div>
+    </div>
+  </div>
+
+	<div class="col-xs-2"><span>Other</span></div>
+</div>
+
+<div id='expenses' class="row expense-table-body" data-ng-repeat="expense in EstimateCtrl.resultValue=(EstimateCtrl.expenses)">
+  <div class="expense-row">
+    <input class='col-xs-3 expenseData expense-date' data-ng-model='expense.expensedate' type='text' name='expensedate' dynamic-text-size>
+    <textarea class='col-xs-4 expenseData smaller-form-text' rows='3' data-ng-model='expense.explanation' name='expenseexplanation'></textarea>
+    <select class="col-xs-2" data-ng-model='expense.meals' data-ng-options='mealtype.name as mealtype.name for mealtype in EstimateCtrl.mealtypes'>
+      <option></option>
+    </select>
+    <select class="col-xs-2" data-ng-model="expense.facility" data-ng-options="facility.name as facility.name for facility in EstimateCtrl.facilities">
+      <option></option>
+    </select>
+    <input class='col-xs-2 expenseData miles' type='text' data-ng-model="expense.miles">
+    <input class='col-xs-2 expenseData surfmileageexp' type='text' value="{{(expense.surfmileage=(expense.miles * EstimateCtrl.ta.mileagerate))}}" name="surfmileage" readonly="readonly">
+    <input class='col-xs-2 expenseData surfotherexp' type='text' data-ng-model="expense.othertrans" name='othertrans'>
+    <input class='col-xs-2 expenseData lodgingexp' type='text' data-ng-model="expense.lodging" name="lodging">
+    <input class='col-xs-2 expenseData mieexp' type='text' data-ng-model="expense.mie" name="mie">
+    <input class='col-xs-2 expenseData otherexp' type='text' data-ng-model="expense.other" name='other'>
+    <div title="delete" class="delete" data-ng-click="EstimateCtrl.delExpense(expense)">
+      <span class="glyphicon glyphicon-remove-circle"></span>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xs-8">
+    <button class="btn btn-default" data-ng-click="EstimateCtrl.addExpense()">Add Another Expense</button>
+  </div>
+  <div class="col-xs-2">TOTALS:</div>
+<div class="col-xs-2">
+  <span class="float-right" id="milestotal">{{EstimateCtrl.totalmiles=(EstimateCtrl.resultValue | sumTotals:'miles')}}</span>
+</div>
+<!--<div class="col-xs-2" data-ng-init="{{totalSurfMileage=(EstimateCtrl.resultValue | sumTotals:'surfmileage') | currency}}"><span class="float-right"-->
+<div class="col-xs-2">
+  <span class="float-right" id="surfmileagetotal">{{(EstimateCtrl.totalsurfmileage=(EstimateCtrl.resultValue | sumTotals:'surfmileage')) | currency}}</span>
+</div>
+<div class="col-xs-2" data-ng-init="totalOtherTrans">
+  <span class="float-right" id="surfothertotal">{{EstimateCtrl.totalothertrans=(EstimateCtrl.resultValue | sumTotals:'othertrans') | currency}}</span>
+</div>
+<div class="col-xs-2">
+  <span class="float-right" id="lodgetotal">{{EstimateCtrl.totallodging=(EstimateCtrl.resultValue | sumTotals:'lodging') | currency}}</span>
+</div>
+<div class="col-xs-2">
+  <span class="float-right" id="mietotal">{{EstimateCtrl.totalmie=(EstimateCtrl.resultValue | sumTotals:'mie') | currency}}</span>
+</div>
+<div class="col-xs-2">
+  <span class="float-right" id="othertotal">{{EstimateCtrl.totalother=(EstimateCtrl.resultValue | sumTotals:'other') | currency}}</span>
+</div>
+</div>
+
+<div class="row">
+  <div class="form-inline col-xs-8">
+    <div class='not-exceed'>
+      <label for='estcost'>Total Not to Exceed</label>
+      <input type='text' value='{{EstimateCtrl.ta.estcost | currency}}' name='estcost' id='estcost'>
+      <button class="btn btn-default estimate" data-ng-click="EstimateCtrl.doEstimate()">Estimate 20%</button>
+    </div>
+  </div>
+  <div class="col-xs-10 col-xs-offset-6 form-horizontal">
+    <div class="form-group row">
+      <label for='totoopexp' class="col-sm-14 control-label">Total Out Of Pocket Expenses:</label>
+      <input class="col-sm-6" id='totoopexp' value="{{EstimateCtrl.ta.ooptotals=(EstimateCtrl.totalsurfmileage + EstimateCtrl.totalothertrans + EstimateCtrl.totallodging + EstimateCtrl.totalmie + EstimateCtrl.totalother) | currency}}" />
+    </div>
+    <div class="form-group row">
+      <label for='atmwithdrawal' class="col-sm-14 control-label">ATM Withdrawal:</label>
+      <input class='expenseData col-sm-6' value="{{EstimateCtrl.ta.atmwithdrawal=(EstimateCtrl.ta.atmwithdrawal) | currency}}" id="atmwithdrawal">
+    </div>
+    <div class="travadvData">
+      <div class="form-group row">
+        <label for="travadvwn" class="col-sm-14 control-label">Travel Advance Warrant Number:</label>
+        <input class='expenseData col-sm-6' data-ng-model="EstimateCtrl.ta.travadvwn" id="travadvwn">
+      </div>
+      <div class="form-group row">
+        <label for="travadvwnamt" class="col-sm-14 control-label">Travel Advance Amount:</label>
+        <input class='expenseData col-sm-6' value="{{EstimateCtrl.ta.travadvwnamt=(EstimateCtrl.ta.travadvwnamt) | currency}}" id="travadvwnamt">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for='totaldue' class="col-sm-14 control-label">Total Due From Traveler:</label>
+      <input class="col-sm-6" id='totaldue'
+          value="{{EstimateCtrl.ta.totaldue=((EstimateCtrl.ta.ooptotals - EstimateCtrl.ta.atmwithdrawal - EstimateCtrl.ta.travadvwnamt))}}" disabled>
+      <!--<input class="col-sm-6" id='totdue'-->
+          <!--data-ng-value="{{EstimateCtrl.ta.totaldue=(EstimateCtrl.ta.ooptotals - EstimateCtrl.ta.atmwithdrawal - EstimateCtrl.ta.travadvnwnamt)}}" disabled>-->
+    </div>
+    <div class="form-group row">
+      <label for="statepaidexp" class="col-sm-14 control-label">State Paid Exp (OCA/Direct Bill):</label>
+      <input class="col-sm-6" type='text' disabled
+          value="{{EstimateCtrl.ta.totalonecard=(EstimateCtrl.ta.totalonecard=(EstimateCtrl.onecardResultValue | sumTotals:'amount'))}}">
+    </div>
+    <div class="form-group row">
+      <label for="totalTripExpense" class="col-sm-14 control-label">Total Trip Expense:</label>
+      <input class="col-sm-6" type='text' disabled id='totalTripExpense' value="{{EstimateCtrl.ta.totaltripexpense=(EstimateCtrl.ta.totaldue + EstimateCtrl.ta.totalonecard)}}">
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div id="trw-table" class="col-xs-12">
+    <div class="row">
+      <h4>Traveler's Reimbursement Warrant</h4>
+      <div class="col-xs-4">FIN</div>
+      <div class="col-xs-6">Type</div>
+      <div class="col-xs-6">Amount</div>
+      <div class="col-xs-6">Iris Object</div>
+    </div>
+    <div class="trw-row" data-ng-repeat="trw in EstimateCtrl.trws">
+      <input class="col-xs-4 fin" readonly data-ng-model="trw.fin" data-ng-value="{{$index + 1}}">
+      <select class="col-xs-6" data-ng-model="trw.type"
+          data-ng-options="trw.name as trw.name for trw in EstimateCtrl.trwtypes">
+        <option></option>
+      </select>
+      <input class="col-xs-6" data-ng-model="trw.amount">
+      <input class="trwAksasNum col-xs-6" data-ng-model="trw.aksasacct">
+      <div title="delete" class="delete col-xs-2" data-ng-click="EstimateCtrl.delTrw(trw)">
+        <span class="glyphicon glyphicon-remove-circle"></span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="trwFoot">
+        <input type="hidden" name="delTrw.toDelete" id="delTRW" value="">
+        <button class="col-xs-12 trw-btn btn btn-default" data-ng-click="EstimateCtrl.addTrw()">Add Reimbursement Warrant</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-xs-12 form-horizontal">
+    <h4>Taxable Travel Reporting</h4>
+    <div class="form-group row">
+      <label for="taxtravtotal" class="col-xs-8 control-label">Total</label>
+      <input data-ng-model="EstimateCtrl.ta.taxtravtotal" class="expenseData col-xs-4" id="taxtravtotal" type="text">
+    </div>
+    <div class="form-group row">
+      <label for="taxtravnontax" class="col-xs-8 control-label">NonTax</label>
+      <input data-ng-model="EstimateCtrl.ta.taxtravnontax" class="expenseData col-xs-4" id="taxtravnontax" type="text">
+    </div>
+    <div class="form-group row">
+      <label for="taxtravtaxable" class="col-xs-8 control-label">Taxable</label>
+      <input data-ng-model="EstimateCtrl.ta.taxtravtaxable" class="expenseData col-xs-4" id="taxtravtaxable" type="text">
+    </div>
+  </div>
+</div>
+
+<div class="row">
+	<div class="col-xs-offset-16 col-xs-8 preparer-space">
+		<span class="col-xs-12">Prepared By:</span>
+		<span class="col-xs-12">{{ preparer.name }}</span>
+	</div>
+	<div class="col-xs-offset-16 col-xs-8 preparer-space">
+		<span class="col-xs-14">Preparers Phone Number:</span>
+		<span class="col-xs-10">{{ preparer.phone }}</span>
+	</div>
+</div>
+
+<div class="row">
+	<h4>One Card Charges and Other State Paid Expenses</h4>
+	<div class="col-xs-2" id="akExpType">Type</div>
+	<div class="col-xs-2" id="akExpAksasRefId">AKSAS Ref ID</div>
+	<div class="col-xs-4" id="akExpInvNum">Reference / INV Number</div>
+	<div class="col-xs-4" id="akExpVendor">Vendor PVN / Vendor Desc</div>
+	<div class="col-xs-2" id="akExpAmount">Amount</div>
+	<div class="col-xs-2" id="akExpDatePd">Date Paid</div>
+	<div class="col-xs-2" id="akExpTypeAksasAcct">AKSAS ACCT</div>
+	<div class="col-xs-4" id="akExpTypeAksasBatch">AKSAS Batch #</div>
+</div>
+
+<div id='state-expenses' class="state-exp-body">
+  <div class='row onecardrow' data-ng-repeat="onecard in EstimateCtrl.onecardResultValue=(EstimateCtrl.onecards)">
+		<select class="col-xs-3" data-ng-model='onecard.type' data-ng-options="onecardtype.name as onecardtype.name for onecardtype in EstimateCtrl.onecardtypes"><option></option></select>
+		<select class="col-xs-2" data-ng-model='onecard.aksasrefid' data-ng-options="aksasrefid.name as aksasrefid.name for aksasrefid in EstimateCtrl.aksasrefids"><option></option></select>
+		<input class="col-xs-4" type='text' data-ng-model='onecard.refinvnumber'>
+		<input class="col-xs-4" type='text' data-ng-model='onecard.vendorpvndesc'>
+		<input class='col-xs-2 oneCardAmount expenseData' type='text' data-ng-model='onecard.amount'>
+		<input class='col-xs-2 onecardexpense smaller-form-text' type='text' data-ng-model='onecard.datepaid'>
+		<input class="col-xs-2" type='text' data-ng-model='onecard.aksasacct'>
+		<input class="col-xs-4" type='text' data-ng-model='onecard.aksasbatchnum'>
+
+		<div title="delete" class="delete" data-ng-click="EstimateCtrl.delOnecard(onecard)">
+			<span class="glyphicon glyphicon-remove-circle"></span>
+		</div>
+	</div>
+	<button class="btn btn-default" data-ng-click="EstimateCtrl.addOnecard()">Add Another Expense</button>
+
+</div>
+
+<!--<div class="btn-buttons row" data-ng-controller="DeleteTaCtrl">-->
+<div class="estimate-buttons btn-buttons row">
+		<div cg-busy="pleaseWait"></div>
+
+	<!--<input type='submit' name='action.saveEstimate' value='Save' class="btn btn-default col-xs-2">-->
+	<button type="submit" id="submit-estimate" class="btn btn-default col-xs-2" data-ng-click="EstimateCtrl.save(estimateform)">Save</button>
+	<!--<input type='button' id='cancelEstimate' name='action.cancelEstimate'-->
+	<button type='submit' id='cancel-estimate' class="btn btn-default col-xs-2" data-ng-click="EstimateCtrl.cancel()">Cancel</button>
+
+	<button type="submit" class="btn btn-default col-xs-8 col-xs-offset-4" data-ng-click="EstimateCtrl.send(EstimateCtrl.taid)">Generate PDF and Send for Approval</button>
+
+	<button type="button" class="btn btn-default delete-ta col-xs-2 col-xs-offset-6" data-ng-click="EstimateCtrl.dodelete(EstimateCtrl.taid)">Delete</button>
+</div>
+
+</form>
+
+
+

@@ -1,0 +1,27 @@
+<div class="modal-header">
+  <h3 class="modal-title">Who shall approve this TA request?</h3>
+</div>
+<div class="modal-body">
+  <div class="form-group">
+    <label>Approver:
+      <input type="text" data-ng-model="SendCtrl.selectedApprover" class="form-control"
+          uib-typeahead="name as name.CN for name in SendCtrl.getNames($viewValue)"
+          typeahead-loading="loadingNames"
+          typeahead-min-length="2"
+          typeahead-no-results="noResults"
+          typeahead-on-select="onSelect($item, $model, $label)" />
+      <i data-ng-show="loadingNames" class="glyphicon glyphicon-refresh"></i>
+      <div data-ng-show="noResults">
+        <i class="glyphicon glyphicon-remove"></i> No Results Found
+      </div>
+      <small>(try their username, email address, 'lastname, firstname' etc.)</small>
+      <br>
+      <b ng-show="message">{{SendCtrl.message}}</b>
+    </label>
+  </div>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-default" data-ng-click="SendCtrl.send(selectedApprover)"><i class="glyphicon glyphicon-envelope"></i>&nbsp;SEND</button>
+  <button class="btn btn-default" data-ng-click="SendCtrl.cancel()"><i class="glyphicon glyphicon-remove"></i>&nbsp;Cancel</button>
+</div>
+

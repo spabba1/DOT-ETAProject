@@ -1,0 +1,26 @@
+<uib-accordion>
+	<uib-accordion-group heading="Your TA's in process" is-open="ReviewCtrl.opened">
+		<table datatable=""
+				data-dt-options="ReviewCtrl.dtOptionsYours"
+				data-dt-columns="ReviewCtrl.dtColumnsYours"
+                data-dt-instance="ReviewCtrl.dtInstanceYours"
+				class="table table-striped table-bordered table-hover">
+		</table>
+	</uib-accordion-group>
+	<uib-accordion-group heading="TA's you're preparing">
+		<table datatable=""
+				dt-options="ReviewCtrl.dtOptionsPreparing"
+				dt-columns="ReviewCtrl.dtColumnsPreparing"
+				dt-instance="ReviewCtrl.dtInstancePreparing"
+				class="table table-striped table-bordered table-hover">
+		</table>
+	</uib-accordion-group>
+	<uib-accordion-group heading="Completed TA's">
+		<table datatable=""
+				dt-options="ReviewCtrl.dtOptionsCompleted"
+				dt-columns="ReviewCtrl.dtColumnsCompleted"
+				dt-instance="ReviewCtrl.dtInstanceCompleted"
+				class="table table-striped table-bordered table-hover">
+		</table>
+	</uib-accordion-group>
+</uib-accordion>

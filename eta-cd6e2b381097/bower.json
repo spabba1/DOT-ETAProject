@@ -1,0 +1,25 @@
+{
+  "name": "doteta",
+  "description": "Electronic Travel Authorization",
+  "authors": [
+    "Jeremey Hustman <jeremeyhustman@gmail.com>"
+  ],
+  "license": "No License",
+  "homepage": "http://web.dot.state.ak.us/admsvc/eta",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "app/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-pdf": "~1.2.9",
+    "angular-utils-ui-breadcrumbs": "~0.2.2"
+  },
+  "devDependencies": {
+    "angular-utils-ui-breadcrumbs": "~0.2.2"
+  }
+}

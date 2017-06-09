@@ -1,0 +1,61 @@
+  <div class="modal-header">
+    <h3 class="modal-title">Add a new staff member</h3>
+  </div>
+  <div class="modal-body">
+    <form novalidate name="addStaffForm" class="form-horizontal">
+      <p>Enter any search terms:</p>
+      <div class="form-group" show-errors>
+        <label for="name" class="col-sm-8 control-label">Name:</label>
+        <div class="col-sm-16">
+          <input
+              type="text"
+              class="form-control"
+              name="name"
+              id="name"
+              data-ng-model="AddStaffCtrl.staffer.name"
+              placeholder="Data loaded from LDAP"
+              uib-typeahead="name as name.CN for name in AddStaffCtrl.getLdapResults($viewValue)"
+              typeahead-on-select="AddStaffCtrl.onSelect($item, $model, $label, $event)"
+              typeahead-loading="loadingNames"
+              typeahead-no-results="noResults"
+              required
+          >
+          <i data-ng-show="loadingNames" class="glyphicon glyphicon-refresh"></i>
+          <div data-ng-show="noResults">
+            <i class="glyphicon glyphicon-remove"></i> No Results Found
+          </div>
+        </div>
+
+        <label for="mail" class="col-sm-8 control-label">Email:</label>
+        <div class="col-sm-16">
+          <input type="email" name="email" class="form-control" id="mail"
+              data-ng-model="AddStaffCtrl.staffer.email" required>
+        </div>
+
+        <label for="staffrole" class="col-sm-8 control-label">Staff Role:</label>
+        <div class="col-sm-16">
+          <select name="staffrole" id="staffrole" class="form-control"
+            data-ng-model="AddStaffCtrl.staffer.staffrole"
+            data-ng-options="role.DESCRIPTION for role in AddStaffCtrl.staffRoles track by role.ID"
+            required>
+            <option></option>
+        </select>
+      </div>
+
+      <label for="notify" class="col-sm-8 control-label">Email Notifications?</label>
+      <div class="col-sm-16">
+        <select name="notify" id="notify" class="form-control"
+        data-ng-model="AddStaffCtrl.staffer.notify"
+        data-ng-options="notify.name for notify in AddStaffCtrl.notifyChoices track by notify.value"
+        required>
+        <option></option>
+      </select>
+    </div>
+  </div>
+  <div data-ng-show="addStaffForm.$submitted && addStaffForm.$error" class="alert alert-danger" role="alert">All fields are required.</div>
+  <div class="form-group-sm text-right">
+    <button class="btn btn-default" data-ng-click="AddStaffCtrl.addStaff(addStaffForm)">Add this staff member</button>
+    <button class="btn btn-default" data-ng-click="AddStaffCtrl.cancel()">Cancel</button>
+  </div>
+</form>
+</div>

@@ -1,0 +1,29 @@
+<h2>You must login to use Electronic Travel Authorization.</h2>
+<h3>Use your LDAP username and password.</h3>
+<div class="row">
+	<form novalidate name="loginform" class="form-horizontal col-xs-offset-6 col-xs-12 login"
+		data-ng-submit="login()" role="form">
+		<fieldset>
+			<legend>Login</legend>
+			<div class="form-group" data-ng-class="{ 'has-error': loginform.username.$dirty && loginform.username.$error.required }">
+				<label for="username" class="col-xs-4 control-label">Username</label>
+				<div class="col-xs-20">
+					<input type="text" class="form-control" placeholder="Username" name="username" id="username" maxlength="25" data-ng-model="username" required>
+					<span data-ng-show="loginform.username.$dirty && loginform.username.$error.required" class="help-block ng-cloak">Username is required</span>
+				</div>
+			</div>
+			<div class="form-group" data-ng-class="{ 'has-error': loginform.password.$dirty && loginform.password.$error.required }">
+				<label for="password" class="col-xs-4 control-label">Password:</label>
+				<div class="col-xs-20">
+					<input type="password" class="form-control" placeholder="Password" name="password" id="password" data-ng-model="password" required>
+					<span data-ng-show="loginform.password.$dirty && loginform.password.$error.required" class="help-block ng-cloak">Password is required</span>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-xs-offset-4 col-xs-20">
+					<button type="submit" data-ng-disabled="loginform.$invalid" class="btn btn-default" id="sign-in">Sign in</button>
+				</div>
+			</div>
+		</fieldset>
+	</form>
+</div>

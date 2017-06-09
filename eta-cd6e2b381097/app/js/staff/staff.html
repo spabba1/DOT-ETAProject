@@ -1,0 +1,21 @@
+<h1>Staff Options</h1>
+<div data-ng-controller="MileageRateController">
+  <span>Current Mileage Rate: </span>
+  <input type="number" step=".001" data-ng-model="mileagerate.mileagerate" data-ng-change="mrChanged()">
+  <span data-ng-show="enableSave" data-ng-click="saveChanges(constant)">
+    <button><i class="glyphicon glyphicon-floppy-save" title="Save" style="cursor: pointer"></i>&nbsp;Save</button>
+  </span>
+</div>
+
+<div>
+<div class="text-right">
+<button data-ng-click="StaffCtrl.addStaff()">Add New Staff</button></div>
+  <hr />
+  <h2>Travel Planners</h2>
+  <table datatable=""
+    data-dt-options="StaffCtrl.dtOptions"
+    data-dt-columns="StaffCtrl.dtColumns"
+    data-dt-instance="StaffCtrl.dtInstance"
+    class="table table-striped table-bordered table-hover">
+</table>
+</div>

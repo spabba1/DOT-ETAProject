@@ -1,0 +1,284 @@
+<form name="taForm" novalidate>
+  <fieldset ng-disabled="taFormData.ta.formtype === 'view'">
+    <h3>Traveler Information</h3>
+
+    <div class="row">
+      <div class="list-group">
+        <div class="list-group-item col-xs-24">
+          <p class="col-xs-18">Is the traveler a State Employee (EE) or a Non-Employee (EE)?</p>
+          <div class="col-xs-6">
+            <label class="radio-inline">
+              <input type="radio" data-ng-model="taFormData.ta.ee" name="ee" data-ng-value="1">
+              State EE
+            </label>
+            <label class="radio-inline">
+              <input type="radio" data-ng-model="taFormData.ta.ee" name="ee" data-ng-value="0">
+              Non-EE
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="list-group">
+        <div class="list-group-item col-xs-24">
+          <p class="col-xs-18 btn-group-sm">Is this form for in-state (intra-Alaska) travel or travel outside of Alaska?
+            <button data-ng-hide="taFormData.ta.instate" type="button" class="btn btn-default ng-cloak"
+            data-ng-click="taFormData.openOOStateForm()">Open Questionnaire</button>
+          </p>
+          <div class="col-xs-6">
+            <label class="radio-inline">
+              <input type="radio" data-ng-model="taFormData.ta.instate" name="instate" data-ng-value="1">
+              In-State
+            </label>
+            <label class="radio-inline">
+              <input type="radio" data-ng-model="taFormData.ta.instate" name="instate" data-ng-value="0">
+              Out-of-State
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="list-group">
+        <div class="list-group-item col-xs-24">
+          <p class="col-xs-18">Does the Traveler's Physical Home Address need to be provided on the form?</p>
+          <div class="col-xs-6">
+            <label class="radio-inline">
+              <input type="radio" data-ng-model="taFormData.ta.physaddr" name="physaddr" data-ng-value="1">
+              Yes
+            </label>
+
+            <label class="radio-inline">
+              <input type="radio" data-ng-model="taFormData.ta.physaddr" name="physaddr" data-ng-value="0">
+              No
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="list-group">
+        <div class="list-group-item col-xs-24">
+          <p class="col-xs-18">Is the Warrant Mailing Address different than the mailing address on the Traveler's PVN record?</p>
+          <div class="col-xs-6">
+            <label class="radio-inline">
+              <input type="radio" data-ng-model="taFormData.ta.warrantaddr" name="warrantaddr" data-ng-value="1">
+              Yes
+            </label>
+            <label class="radio-inline">
+              <input type="radio" data-ng-model="taFormData.ta.warrantaddr" name="warrantaddr" data-ng-value="0">
+              No
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+    </fieldset>
+    <fieldset class="travelerInfo">
+      <div class="row">
+        <div class="col-xs-6 form-group" data-show-errors>
+          <label for="travelerid">Employee ID:</label>
+          <input class="form-control" type="text" data-ng-model="taFormData.ta.travelerid" name="travelerid" id="travelerid" required hide-zero>
+          <p class="help-block" data-ng-if="taForm.travelerid.$error.required">Employee Number Required!</p>
+        </div>
+        <!--<div class="col-xs-3 form-group"-->
+        <!--ng-class="{'has-error': taForm.$submitted && taForm.travelerid.$error,-->
+        <!--'has-success': taForm.$submitted && taForm.travelerid.$valid}">-->
+        <!--<label for="travelerid">Employee ID:</label>-->
+        <!--<input class="form-control" type="text" data-ng-model="taFormData.ta.travelerid" name="travelerid" id="travelerid" required>-->
+        <!--<div class="alert alert-danger" ng-show="taForm.$submitted && taForm.travelerid.$error.required">Required!</div>-->
+        <!--</div>-->
+        <div class="col-xs-6 form-group">
+          <label for="pvn">Pay Vendor Number (PVN):</label>
+          <input class="form-control" data-ng-model="taFormData.ta.pvn" name="pvn" id="pvn">
+        </div>
+        <div class="col-xs-6 form-group">
+          <label for="travelerName">Name of Traveler:</label>
+          <input class="form-control" type="text" data-ng-model="taFormData.ta.travelername" name="travelername" id="travelername">
+        </div>
+        <div class="col-xs-6 form-group">
+          <label for="empTitle">Title:</label>
+          <input class="form-control" type="text" data-ng-model="taFormData.ta.title" name="title" id="empTitle">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-6 form-group">
+          <label for="dept">Department:</label>
+          <input class="form-control" type="text" data-ng-model="taFormData.ta.dept" name="dept" id="dept">
+        </div>
+        <div class="col-xs-6 form-group">
+          <label for="div">Division:</label>
+          <input class="form-control" type="text" data-ng-model="taFormData.ta.div" name="div" id="div">
+        </div>
+        <div class="col-xs-6 form-group">
+          <label for="bu">Bargaining Unit:</label>
+          <input class="form-control" type="text" data-ng-model="taFormData.ta.bu" name="bu" id="bu">
+        </div>
+        <div class="col-xs-6 form-group">
+          <label for="dutystation">Duty Station:</label>
+          <input class="form-control" type="text" data-ng-model="taFormData.ta.dutystation" name="dutystation" id="dutystation">
+        </div>
+      </div>
+      <div id="physAddr" class="ng-cloak" data-ng-show="physaddr">
+        <div class="row">
+          <div class="col-xs-6">
+            <label for="homeaddress">Physical Home Street Address:</label>
+            <textarea class="form-control" data-ng-model="taFormData.ta.homeaddress" name="homeaddress" id="homeaddress"></textarea>
+          </div>
+          <div class="col-xs-6">
+            <label for="homecity">City:</label>
+            <input class="form-control" type="text" data-ng-model="taFormData.ta.homecity" name="homecity" id="homecity">
+          </div>
+          <div class="col-xs-6">
+            <label for="homestate">State:</label>
+            <input class="form-control" type="text" data-ng-model="taFormData.ta.homestate" name="homestate" id="homestate">
+          </div>
+          <div class="col-xs-6">
+            <label for="homezip">Zip Code:</label>
+            <input class="form-control" type="text" data-ng-model="taFormData.ta.homezip" name="homezip" id="homezip">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-8 form-group">
+          <label for="workdays">Normal Work Days:</label>
+          <input class="form-control" type="text" data-ng-model="taFormData.ta.workdays" name="workdays" id="workdays">
+          <label for="worktime">Normal Work Time:</label>
+          <input class="form-control" type="text" data-ng-model="taFormData.ta.worktime" name="worktime" id="worktime">
+        </div>
+        <div class="col-xs-8">
+          <label for="departurefrom">Departing From:</label>
+          <input class="form-control" type="text" data-ng-model="taFormData.ta.departurefrom" id="departurefrom">
+
+          <label for="departuredate">Departure Date:</label>
+          <div class="input-group" show-errors>
+            <input type="text" class="form-control" name="departuredate"
+            uib-datepicker-popup="MM/dd/yyyy"
+            data-is-open="depart.opened"
+            data-max-date="taFormData.ta.returndate"
+            data-close-text="Close"
+            data-ng-model="taFormData.ta.departuredate"
+            >
+            <span class="input-group-btn">
+              <button type="button" class="btn btn-default"
+              data-ng-click="depart.opened = true">
+              <i class="glyphicon glyphicon-calendar"></i>
+            </button>
+          </span>
+        </div>
+        <p class="help-block" data-ng-if="taForm.departuredate.$error.date">Not a valid date format.</p>
+      </div>
+      <div class="col-xs-8">
+        <label for="destinationto">To (Destination):</label>
+        <input class="form-control" type="text" data-ng-model="taFormData.ta.destinationto" name="destinationto" id="destinationto">
+
+        <label for="returndate">Return Date:</label>
+        <div class="input-group" show-errors>
+          <input type="text" class="form-control"
+          name="returndate"
+          data-placeholder="mm/dd/yyyy"
+          uib-datepicker-popup="MM/dd/yyyy"
+          data-is-open="return.opened"
+          data-min-date="taFormData.ta.departuredate"
+          data-close-text="Close"
+          data-ng-model="taFormData.ta.returndate"
+          >
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-default"
+            data-ng-click="return.opened = true">
+            <i class="glyphicon glyphicon-calendar"></i>
+          </button>
+        </span>
+      </div>
+      <p class="help-block" data-ng-if="taForm.returndate.$error.date">Not a valid date format.</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-24">
+      <label for="purpose">What is the purpose of your trip?</label>
+      <textarea class="form-control" data-ng-model="taFormData.ta.purpose" name="purpose" id="purpose"></textarea>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-24">
+      <label for="travPref">What are your flight preferences (departure times, flight numbers, seating, etc.) (Note: Fulfillments are based on availability)</label>
+      <textarea class="form-control" data-ng-model="taFormData.ta.travpref" name="travpref" id="travpref"></textarea>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-6">
+      <div class="radio">
+        <p>Do you need a hotel?</p>
+        <label>
+          <input type="radio" data-ng-model="taFormData.ta.hotelinc" data-ng-value="1">
+          Yes
+        </label>
+        <label>
+          <input type="radio" data-ng-model="taFormData.ta.hotelinc" data-ng-value="0">
+          No
+        </label>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-6">
+      <div class="radio">
+        <p>Do you need a rental car?</p>
+        <label>
+          <input type="radio" data-ng-model="taFormData.ta.carinc" data-ng-value="1">
+          Yes
+        </label>
+        <label>
+          <input type="radio" data-ng-model="taFormData.ta.carinc" data-ng-value="0">
+          No
+        </label>
+      </div>
+    </div>
+  </div>
+
+</fieldset>
+<div class="row">
+  <div cg-busy="taFormData.pleaseWait"></div>
+  <div class="btn-group col-xs-6" role="group">
+
+    <button type="submit" id="submit-ta" class="btn btn-default"
+    data-ng-show="taFormData.ta.formtype === 'create' || taFormData.ta.formtype === 'edit'"
+    data-ng-click="taFormData.submit(taForm)">Submit</button>
+
+    <button class="btn btn-default" id="update-ta"
+    data-ng-show="taFormData.ta.formtype === 'update'" type="submit"
+    name="update-ta" data-ng-click="taFormData.action"
+    value="Update">Save</button>
+
+    <button type="submit" id="save-ta" class="btn btn-default"
+    data-ng-hide="taFormData.ta.formtype === 'view'"
+    data-ng-click="taFormData.save(taForm)">Save</button>
+
+    <button class="btn btn-default" id="cancel-ta"
+    data-ng-hide="taFormData.ta.formtype === 'view'"
+    data-ng-click="taFormData.cancel(ta.formtype)">Cancel</button>
+
+  </div>
+
+  <div class="col-xs-6">
+    <uib-alert data-ng-if="taForm.$submitted && taForm.$invalid" type="danger">Please check for errors.</uib-alert>
+  </div>
+
+  <button data-ng-hide="taFormData.ta.formtype === 'create' || taFormData.ta.formtype === 'view'"
+      class="btn btn-default col-xs-2 deleteTa"
+      data-ng-click="taFormData.delete(ta)">Delete</button>
+  <button data-ng-show="taFormData.ta.formtype === 'view'"
+      class="btn btn-default col-xs-2"
+      data-ng-click="taFormData.close()">Close</button>
+</div>
+
+
+
+</form>
+
+<div class="cancel-dialog" title="Cancel this TA?">
+  <p>This will close this TA without saving, are you sure?</p>
+</div>
+
+<!-- vim: set foldlevel=3: -->

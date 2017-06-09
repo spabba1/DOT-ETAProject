@@ -1,0 +1,27 @@
+// www.cssstickyfooter.com
+$white: #fff;
+
+html,
+body {
+  height: 100%;
+}
+
+.wrap {
+  background-color: $white;
+  margin: auto;
+  min-height: 100%;
+  width: 1000px;
+}
+
+.main {
+  overflow: auto;
+  padding-bottom: 82px;
+}
+
+.dot-footer {
+  clear: both;
+  height: 82px;
+  margin-top: -82px;
+  position: relative;
+  width: 1000px;
+}

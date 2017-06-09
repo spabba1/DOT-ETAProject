@@ -1,0 +1,225 @@
+﻿<!doctype html>
+<html class="no-js" lang="en-us">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="description" content="Electronic Travel Authorization">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="keywords" content="employee intranet State Alaska Department
+			Transportation Public Facilities DOT DOTPF DOT&amp;PF">
+	<meta name="author" content="&copy;Alaska Department of Transportation and
+			Public Facilities, all rights reserved.">
+	<title data-ng-bind="'ETA | ' + $state.current.data.displayName + ' | Employee Intranet || Alaska DOT&amp;PF'"></title>
+	<link rel="shortcut icon" href="http://web.dot.alaska.gov/favicon.ico">
+	<link rel="icon" type="image/ico" href="http://www.dot.alaska.gov/favicon.ico">
+	<link rel="stylesheet" href="assets/css/main.css">
+	<script src="./assets/libs/modernizr.js"></script>
+</head>
+<body>
+
+<script>
+	'use strict';
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-42030068-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+<div class="wrap">
+  <div class="main">
+    <a class="top"></a>
+    <div class="top-bar">
+      <div class="top-bar-right"></div>
+      <a class="dot" href="http://web.dot.state.ak.us/">DOT&amp;PF Employee Intranet<span></span></a>
+      <ul>
+        <li><a href="http://web.dot.state.ak.us/index.shtml#divsec">Divisions/Sections</a></li>
+        <li><a href="http://web.dot.state.ak.us/sitemap.shtml">Site Map</a></li>
+        <li><a href="http://web.dot.state.ak.us/">Intranet Home</a></li>
+        <li><a href="http://dot.alaska.gov/" target="_blank">DOT&amp;PF Public </a></li>
+        <li><a href="http://www.dot.state.ak.us/empdir/" target="_blank">Employee Directory</a></li>
+      </ul>
+      <div class="clear"></div>
+    </div>
+    <div class="header">
+      <!-- HEADER BANNER -->
+      <!-- TemplateBeginEditable name="main header" -->
+      <a class="title" href="http://web.dot.state.ak.us/admsvc">
+        <span>
+          <img src="assets/images/hdrs/header_adminsvcs.gif" alt="DOT&amp;PF Intranet Header" width="1000" height="90">
+        </span>
+        Alaska DOT &amp; PF Employee Intranet / Division or Section Name
+      </a>
+      <!-- TemplateEndEditable -->
+      <!-- SOA SEARCH BOX - SERVER SIDE INCLUDE -->
+    </div><!-- /header -->
+    <a class="main-content"></a>
+      <!-- BEGIN BREADCRUMBS -->
+      <!-- Forced together on purpose to remove the extra spacing that was being added -->
+      <div class="breadcrumbs">
+        <a href="/">DOT&amp;PF Employee Intranet&nbsp;</a>&gt;
+        <a href="/admsvc">Administrative Services&nbsp;</a>&gt;
+        <a data-ui-sref="home">ETA&nbsp;</a>&gt;
+        <ui-breadcrumbs
+            displayname-property="data.displayName"
+            template-url="./js/core/breadcrumb-tpl.html"></ui-breadcrumbs>
+      </div>
+      <div class="container">
+          <toast></toast>
+          <div class="view-animate-container">
+            <div cg-busy-plus="pleaseWait">
+              <div data-ui-view class="view-animate">
+                Loading...
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> <!-- ##container -->
+	</div> <!-- ##main -->
+</div> <!-- ##wrap -->
+<div class="dot-footer">
+  <div class="dot-footer-content">
+    <span style="color: #333; cursor: default"><!--<cfoutput>#getEnvironment()#</cfoutput>--></span>
+    <div class="left">
+      <ul>
+        <li><script>document.write("<a href='mailto:dot.webmanager@alaska.gov?subject=" + location.href + "' class='footer'>Web Manager<\/a>");</script></li>
+        <li><a href="/sitemap.shtml">Site Map</a></li>
+        <li><a href="http://web.dot.state.ak.us/">Employee Intranet Home</a></li>
+        <li><a href="http://www.dot.state.ak.us/empdir/" target="_blank">DOT&amp;PF Employee Directory</a></li>
+      </ul>
+    <div class="clear"></div>
+      <a href="http://web.dot.state.ak.us/"><img src="assets/images/dotpf/dotpf_bwseal_footer.png" alt="view offical DOT&amp;PF Facebook pages" width="55" height="55"></a>
+    </div>
+    <address class="right">Department of Transportation <br>
+      &amp; Public Facilities<br>PO Box 112500<br>3132 Channel Drive<br>
+      Juneau, Alaska 99811-2500<br>
+      Phone: 907-465-3900 || 907-586-8365 (FAX)
+    </address>
+  </div>
+</div>
+
+
+
+<!-- build:js assets/js/vendor.js -->
+<script src="./js/noconsole.js"></script>
+
+<script src="./assets/libs/system-polyfills.src.js"></script>
+<script src="./assets/libs/system.src.js"></script>
+
+<script src="./assets/libs/compatibility.js"></script>
+<script src="./assets/libs/pdf.js"></script>
+<script src="./assets/libs/pdf.worker.js"></script>
+
+<script src="./assets/libs/jquery.js"></script>
+
+<script src="./assets/libs/jquery.dataTables.js"></script>
+<script src="./assets/libs/angular.js"></script>
+<script src="./assets/libs/angular-datatables.js"></script>
+
+<script src="./assets/libs/dataTables.bootstrap.js"></script>
+<script src="./assets/libs/dataTables.buttons.js"></script>
+<script src="./assets/libs/buttons.colVis.js"></script>
+<script src="./assets/libs/buttons.bootstrap.js"></script>
+<script src="./assets/libs/dataTables.scroller.js"></script>
+
+<script src="./assets/libs/angular-animate.js"></script>
+<script src="./assets/libs/angular-cookies.js"></script>
+<script src="./assets/libs/angular-messages.js"></script>
+<script src="./assets/libs/angular-sanitize.js"></script>
+<script src="./assets/libs/angular-ui-router.js"></script>
+<script src="./assets/libs/angular-pdf.js"></script>
+
+<script src="./assets/libs/angular-datatables.scroller.js"></script>
+<script src="./assets/libs/angular-datatables.buttons.js"></script>
+<script src="./assets/libs/angular-datatables.bootstrap.js"></script>
+
+<script src="./assets/libs/ui-bootstrap-tpls.js"></script>
+<script src="./assets/libs/angular-busy-plus.js"></script>
+
+
+<script src="./bower_components/angular-utils-ui-breadcrumbs/uiBreadcrumbs.js"></script>
+
+
+<script src="./assets/libs/showErrors.js"></script>
+<script src="./assets/libs/ngToast.js"></script>
+<!-- endbuild -->
+
+<!-- build:js assets/js/main.js -->
+<!--
+<script src="./assets/scripts/app.js"></script>
+<script src="./assets/scripts/controllers/controllers.js"></script>
+<script src="./assets/scripts/controllers/create.js"></script>
+<script src="./assets/scripts/controllers/delete.js"></script>
+<script src="./assets/scripts/controllers/edit.js"></script>
+<script src="./assets/scripts/controllers/estimate.js"></script>
+<script src="./assets/scripts/controllers/home.js"></script>
+<script src="./assets/scripts/controllers/pdfview.js"></script>
+<script src="./assets/scripts/controllers/review.js"></script>
+<script src="./assets/scripts/controllers/approvals.js"></script>
+<script src="./assets/scripts/controllers/approved.js"></script>
+<script src="./assets/scripts/controllers/security.js"></script>
+<script src="./assets/scripts/controllers/send.js"></script>
+<script src="./assets/scripts/controllers/staff.js"></script>
+<script src="./assets/scripts/controllers/taform.js"></script>
+<script src="./assets/scripts/controllers/toestimate.js"></script>
+<script src="./assets/scripts/controllers/view.js"></script>
+<script src="./assets/scripts/controllers/workflow.js"></script>
+
+<script src="./assets/scripts/services/admin.js"></script>
+<script src="./assets/scripts/services/approved.js"></script>
+<script src="./assets/scripts/services/create.js"></script>
+<script src="./assets/scripts/services/delete.js"></script>
+<script src="./assets/scripts/services/edit.js"></script>
+<script src="./assets/scripts/services/edocs.js"></script>
+<script src="./assets/scripts/services/email.js"></script>
+<script src="./assets/scripts/services/estimate.js"></script>
+<script src="./assets/scripts/services/home.js"></script>
+<script src="./assets/scripts/services/security.js"></script>
+<script src="./assets/scripts/services/send.js"></script>
+<script src="./assets/scripts/services/staff.js"></script>
+<script src="./assets/scripts/services/toestimate.js"></script>
+<script src="./assets/scripts/services/view.js"></script>
+<script src="./assets/scripts/services/workflow.js"></script>
+
+<script src="./assets/scripts/directives/directives.js"></script>
+<script src="./assets/scripts/directives/home.js"></script>
+<script src="./assets/scripts/directives/taform.js"></script>
+-->
+<!-- endbuild -->
+
+<script>
+System.config({
+    packages: {'js': {defaultExtension: 'js'}}
+});
+System.import('js/app.module');
+</script>
+
+<!--[if lt IE 10]>
+<script>
+$(document).ready(function () {
+	$("##outdatedBrowser").dialog({
+		width: 500,
+		modal: true,
+		buttons: {
+			Ok: function() {
+				$(this).dialog("close");
+			}
+		}
+	});
+});
+</script>
+
+
+<div class="outdatedBrowser" title="Outdated Browser">
+	<p>You need <i>at least</i> <strong>Internet Explorer 10</strong> to use ETA.</p>
+	<p><i><u>If you are using IE10</u>, check your compatability view settings.</i></p>
+	<p>Please <a href="http://asdhelpdesk.dot.soa.alaska.gov/">submit a trouble ticket</a> for a complimentary upgrade to your browser.</p>
+</div>
+<![endif]-->
+</body>
+</html>
+

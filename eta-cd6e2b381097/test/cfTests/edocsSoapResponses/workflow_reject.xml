@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
+    <SOAP-ENV:Body>
+        <idc:service xmlns:idc="http://www.stellent.com/IdcService/" IdcService="WORKFLOW_REJECT">
+            <idc:document dUser="jphustman" dOriginalName="25-2016-00003.pdf" dStatus="REVIEW" dDocName="DOT-JNU_081990" dDocAuthor="jphustman" dExtension="pdf" dPublishState="" dReleaseState="E" dRevClassID="81990" dDocTitle="25-2016-00003" dID="83914">
+                <idc:field name="isCurRevEmpty" />
+                <idc:field name="dWfType">Criteria</idc:field>
+                <idc:field name="dWorkflowState">W</idc:field>
+                <idc:field name="wfAction">REJECT</idc:field>
+                <idc:field name="dWfCurrentStepID">75</idc:field>
+                <idc:field name="wfStepCheckinType">:R:</idc:field>
+                <idc:field name="entryCount">2</idc:field>
+                <idc:field name="prevReleaseState" />
+                <idc:field name="wfCurrentStepPrefix">Initial_Import@eta_workflow</idc:field>
+                <idc:field name="dWfStepDescription" />
+                <idc:field name="dWfStepType">:R:C:CE:</idc:field>
+                <idc:field name="dClbraLongDesc">Admin procedures, certificates, server restarts, etc.</idc:field>
+                <idc:field name="wfMailSubject">&lt;$include wf_rejected_subject$&gt;</idc:field>
+                <idc:field name="dWfName">eta_workflow</idc:field>
+                <idc:field name="wfQueueActionState" />
+                <idc:field name="AliasAccessList">statewide-edocs-admin,7,statewide-eta-review,15</idc:field>
+                <idc:field name="dClbraName">PRJ0000028</idc:field>
+                <idc:field name="dActionMillis">234895420</idc:field>
+                <idc:field name="dClbraProjLead">sysadmin</idc:field>
+                <idc:field name="wfMailTemplate">WF_REJECT_MAIL</idc:field>
+                <idc:field name="wfQueueEnterTs">{ts '2015-12-01 15:50:55.458'}</idc:field>
+                <idc:field name="RedirectParams">&lt;$if inQueueRedirect$&gt;IdcService=GET_PORTAL_PAGE&amp;Action=GetTemplatePage&amp;Page=WF_INQUEUE_LIST&lt;$else$&gt;IdcService=GET_WORKFLOWDOCREVISIONS&amp;dWfName=&lt;$url(dWfName)$&gt;&lt;$if dClbraName$&gt;&amp;dClbraName=&lt;$url(dClbraName)$&gt;&lt;$endif$&gt;&lt;$endif$&gt;</idc:field>
+                <idc:field name="dWfStepName">Initial_Import</idc:field>
+                <idc:field name="dWfDocState">INPROCESS</idc:field>
+                <idc:field name="dWfStepWeight">1</idc:field>
+                <idc:field name="dActionDate">12/1/15 3:50 PM</idc:field>
+                <idc:field name="UserAccessList">sysadmin,15</idc:field>
+                <idc:field name="dClbraDefDispAttrs">color_blue</idc:field>
+                <idc:field name="IsWorkflow">1</idc:field>
+                <idc:field name="dWfStepID">75</idc:field>
+                <idc:field name="wfRejectMessage">some reason for rejection.</idc:field>
+                <idc:field name="dWfStatus">INPROCESS</idc:field>
+                <idc:field name="lastEntryTs">{ts '2015-12-01 15:50:00.000'}</idc:field>
+                <idc:field name="dClbraMailExcludeList" />
+                <idc:field name="wfUsers">jphustman</idc:field>
+                <idc:field name="dAction">Reject</idc:field>
+                <idc:field name="wfMessage">some reason for rejection.</idc:field>
+                <idc:field name="wfQueueLastActionTs">{ts '2015-12-01 15:50:55.458'}</idc:field>
+                <idc:field name="dWfDirectory">projects</idc:field>
+                <idc:field name="dWfStepIsAll">0</idc:field>
+                <idc:field name="dClbraMailExcludeAll">1</idc:field>
+                <idc:field name="dWfComputed" />
+                <idc:field name="WfEditFinished">true</idc:field>
+                <idc:field name="dWfID">28</idc:field>
+                <idc:resultset name="UserAttribInfo" TotalRows="1">
+                    <idc:row>
+                        <idc:field name="dUserName">jphustman</idc:field>
+                        <idc:field name="AttributeInfo">account,prj,15,account,#none,15,role,contributor,15,role,mscve_public,15,role,planning_public,15,role,materials_public,15,role,design_public,15,role,row_public,15,role,admin_public,15,role,airport_public,15,role,gis_public,15,role,construction_public,15,role,advertising_public,15,role,archives_public,15,role,preconstruction_public,15,role,transdata_public,15,role,research_public,15</idc:field>
+                    </idc:row>
+                </idc:resultset>
+            </idc:document>
+        </idc:service>
+    </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>

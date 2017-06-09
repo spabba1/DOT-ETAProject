@@ -1,0 +1,12 @@
+<div style="padding:6px 0;" class="row">
+	<h5 class="col-xs-2">Auto-fill information:</h5>
+	<div class="btn-group" role="group">
+		<button class="btn btn-default" id="autofill"
+		 data-ng-click="CreateCtrl.openForYou()">For You</button>
+		<button class="btn btn-default"
+		 data-ng-click="CreateCtrl.openForSomeone()">For Someone Else</button>
+		<button class="btn btn-default" data-ng-click="CreateCtrl.clear()">Clear Form</button>
+	</div>
+</div>
+
+<ta-form ta="CreateCtrl.ta" oos="CreateCtrl.oos" busy="CreateCtrl.pleaseWait"></ta-form>

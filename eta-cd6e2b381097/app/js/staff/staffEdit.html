@@ -1,0 +1,55 @@
+  <div class="modal-header">
+    <h3 class="modal-title">Edit Travel Planner</h3>
+  </div>
+
+  <div class="modal-body">
+    <form class='form-horizontal'>
+      <div class="form-group-sm">
+        <label for="firstname">Firstname</label>
+        <input class="form-control" name="firstname" data-ng-model="StaffEditCtrl.etauser.firstname" type="text" size="50" maxlength="50" value="" />
+      </div>
+
+      <div class="form-group-sm">
+        <label for="lastname">Lastname</label>
+        <input class="form-control" name="lastname" data-ng-model="StaffEditCtrl.etauser.lastname" type="text" size="50" maxlength="50" value="" />
+      </div>
+
+      <div class="form-group-sm">
+        <label for="email">Email</label>
+        <input class="form-control" name="email" data-ng-model="StaffEditCtrl.etauser.email" type="text" size="50" maxlength="50" value="" />
+      </div>
+
+      <div class="form-group-sm">
+        <label for="datejoined">Date Joined</label>
+        <input class="form-control" name="datejoined" data-ng-model="StaffEditCtrl.etauser.datejoined" type="text" size="50" class="datepicker" value="" readonly />
+      </div>
+
+      <div class="form-group-sm">
+        <label for="dateleft">Date Left</label>
+        <input class="form-control" name="dateleft" data-ng-model="StaffEditCtrl.etauser.dateleft" type="text" size="50" class="datepicker" value="" readonly/>
+      </div>
+
+      <div class="form-group-sm">
+        <label for="otherdetails">Notes</label>
+        <input class="form-control" name="otherdetails" data-ng-model="StaffEditCtrl.etauser.otherdetails" type="text" size="50" maxlength="50" value="" />
+      </div>
+
+      <div class="form-group-sm">
+        <label for="staffrole">Staff Role</label>
+        <select name="staffrole" id="staffrole" class="form-control" data-ng-model="StaffEditCtrl.etauser.staffroleid"
+            data-ng-options="role.DESCRIPTION for role in StaffEditCtrl.staffRoles track by role.ID">
+        </select>
+      </div>
+
+      <div class="form-group-sm">
+        <label for="notify">Email Notify?</label>
+        <select name="notify" id="notify" class="form-control" data-ng-model="StaffEditCtrl.etauser.notify"
+            data-ng-options="notify.name for notify in StaffEditCtrl.notifyChoices track by notify.value">
+        </select>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button data-ng-click="StaffEditCtrl.update(StaffEditCtrl.etauser)">Update</button>
+    <button data-ng-click="StaffEditCtrl.cancel()">Cancel</button>
+  </div>

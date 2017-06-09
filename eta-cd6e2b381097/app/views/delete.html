@@ -1,0 +1,25 @@
+<h3>TA Recycle Bin</h3>
+<p>These are TA's that have been deleted, but here is where you can delete them permanently</p>
+
+<div data-ng-controller="TADeleteController as deletedTas">
+	<table datatable="" dt-options="deletedTas.dtOptions"
+				dt-columns="deletedTas.dtColumns"
+				dt-instance="deletedTas.dtInstance" class="row-border hover">
+	</table>
+</div>
+
+<h5>* Click on a row to delete it! *</h5>
+
+<script type="text/ng-template" id="reallyDelete.html">
+        <div class="modal-header">
+            <h3 class="modal-title">Delete TA</h3>
+        </div>
+        <div class="modal-body">
+			<p>This will permanently delete this TA out of the system, are you sure you want to do this?</p>
+			<p>{{taid}}</p>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-warning" type="button" ng-click="ok(taid)">YES, DELETE!</button>
+            <button class="btn btn-default" type="button" ng-click="cancel()">No, Cancel</button>
+        </div>
+</script>

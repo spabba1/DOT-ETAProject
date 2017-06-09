@@ -1,0 +1,3 @@
+<div class="ng-breadcrumbs" data-ng-repeat="crumb in breadcrumbs" data-ng-class="{active: $last}">
+	<a ui-sref="{{crumb.route}}" data-ng-if="!$last">{{crumb.displayName}}&nbsp;</a><span data-ng-show="$last">{{crumb.displayName}}</span>
+</div>

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost:8500/" />
+<title>travel</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">travel</td></tr>
+</thead><tbody>
+<tr>
+	<td>type</td>
+	<td>//tr[2]/td[2]/textarea</td>
+	<td>no explanation</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>//tr[2]/td[3]/select</td>
+	<td>label=L/D</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>//tr[2]/td[4]/select</td>
+	<td>label=NONC</td>
+</tr>
+<tr>
+	<td>sendKeys</td>
+	<td>//tr[2]/td[5]/input</td>
+	<td>16</td>
+</tr>
+<tr>
+	<td>sendKeys</td>
+	<td>//tr[2]/td[7]/input</td>
+	<td>23</td>
+</tr>
+<tr>
+	<td>sendKeys</td>
+	<td>//tr[2]/td[9]/input</td>
+	<td>30</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>//tr[2]/td/input</td>
+	<td>3/3/2014</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=addExpense</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>//tr[3]/td/input</td>
+	<td>3/5/2013</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>//tr[3]/td[2]/textarea</td>
+	<td>something else here</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>//tr[3]/td[3]/select</td>
+	<td>label=B/L/D</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>//tr[3]/td[4]/select</td>
+	<td>label=NONC</td>
+</tr>
+<tr>
+	<td>sendKeys</td>
+	<td>//tr[3]/td[9]/input</td>
+	<td>60</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>//table[2]/tbody/tr[2]/td/select</td>
+	<td>label=AIR</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>//tr[2]/td[2]/select</td>
+	<td>label=TKT</td>
+</tr>
+<tr>
+	<td>sendKeys</td>
+	<td>//table[2]/tbody/tr[2]/td[5]/input</td>
+	<td>556</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=addAkExpense</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>//table[2]/tbody/tr[3]/td/select</td>
+	<td>label=LODG</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>//tr[3]/td[2]/select</td>
+	<td>label=LOD</td>
+</tr>
+<tr>
+	<td>sendKeys</td>
+	<td>//table[2]/tbody/tr[3]/td[5]/input</td>
+	<td>300</td>
+</tr>
+</tbody></table>
+</body>
+</html>

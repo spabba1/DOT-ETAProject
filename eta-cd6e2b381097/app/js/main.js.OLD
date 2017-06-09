@@ -1,0 +1,1236 @@
+/*global autosize, document, window, alert, console, setTimeout, $,
+     $compile, PDFJS, Uint8Array */
+// Outside of jQuery document object
+
+/*window.jQuery.fn.autosize = function () {
+    'use strict';
+    return autosize(this);
+};*/
+
+/**
+* Converts a SerializeJSON output into a workable array
+* @author Arlo Carreon
+* @link http://www.arlocarreon.com/blog/javascript/coldfusion-serializejson-into-workable-array/
+*
+* @param {string} serialObj - Coldfusion Serialized JSON
+* @returns {Object}
+*/
+function convertColdfusionJson(serialObj) {
+    'use strict';
+    var s = serialObj || {},
+        obj = [],
+        i,
+        j,
+        temp = {};
+    if (!s.COLUMNS && !s.DATA) {
+        console.error('Not a coldfusion serialized object!');
+        return [];
+    }
+
+    // Loop through serialObj and matches the columns
+    for (i = 0; i < s.DATA.length; i += 1) {
+        for (j = 0; j < s.COLUMNS.length; j += 1) {
+            temp[s.COLUMNS[j]] = s.DATA[i][j];
+        }
+
+        // save the new row with column names
+        obj.push(temp);
+    }
+
+    // Return the objects
+    return obj;
+}
+
+function openRejectReason(reason) {
+    'use strict';
+
+    $('.rejectReasonDialog').dialog('open');
+    $('.thisIsTheReason').html(decodeURIComponent(reason));
+}
+
+function dumpObject(obj) {
+    'use strict';
+    var anoutput = '',
+        property;
+    for (property in obj) {
+        if (obj.hasOwnProperty(property)) {
+            anoutput += property + ': ' + obj[property] + ';\n';
+        }
+    }
+    console.log(anoutput);
+}
+
+var validateEstimateForm = function () {
+    'use strict';
+    var estimateForm = $('.estimate-form').validate({
+        rules: {
+            onecardexpenseDate: {
+                date: true
+            }
+        }
+    });
+    estimateForm.form();
+};
+
+$(document).ready(function () {
+    'use strict';
+
+    var ldapAutoFill = function (idNum) {
+        $.ajax({
+            url: './model/services/ldapfuncs.cfc?method=getUserByEin',
+            type: 'POST',
+            data: {
+                employeeNumber: idNum
+            },
+            dataType: 'json',
+            success: function (result) {
+                var jsonArray = convertColdfusionJson(result),
+                    i = 0,
+                    prop;
+                for (i; i < jsonArray.length; i += 1) {
+                    prop = jsonArray[i];
+
+                    // if statements prevent overwriting fields
+                    if ($('#ein').val() === '') {
+                        $('#ein').val(prop.EMPLOYEENUMBER);
+                    }
+                    if ($('#travelerName').val() === '') {
+                        $('#travelerName').val(prop.CN);
+                    }
+                    if ($('#empTitle').val() === '') {
+                        $('#empTitle').val(prop.TITLE);
+                    }
+                    if ($('#dept').val() === '') {
+                        $('#dept').val(prop.OU);
+                    }
+                    if ($('#div').val() === '') {
+                        $('#div').val(prop.OU2);
+                    }
+                    if ($('#bu').val() === '') {
+                        $('#bu').val(prop.BARGAININGUNIT);
+                    }
+                    if ($('#dutyStation').val() === '') {
+                        $('#dutyStation').val(prop.L);
+                    }
+                    if ($('#homeAddress').val() === '') {
+                        $('#homeAddress').val(prop.HOMEADDRESS);
+                    }
+                    if ($('#homeCity').val() === '') {
+                        $('#homeCity').val(prop.HOMECITY);
+                    }
+                    if ($('#homeState').val() === '') {
+                        $('#homeState').val(prop.HOMESTATE);
+                    }
+                    if ($('#homeZip').val() === '') {
+                        $('#homeZip').val(prop.HOMEZIP);
+                    }
+                    if ($('#pvn').val() === '') {
+                        $('#pvn').val(prop.PVN);
+                    }
+                    if ($('#workDays').val() === '') {
+                        $('#workDays').val(prop.WORKDAYS);
+                    }
+                    if ($('#workTime').val() === '') {
+                        $('#workTime').val(prop.WORKTIME);
+                    }
+                }
+
+            }
+        });
+    };
+
+    // Out of state questionnaire
+/*
+    $('#ooStateDialog').dialog({
+        autoOpen: false,
+        modal: true,
+        width: 800,
+        dialogClass: 'ooStateModal',
+        buttons: [{
+            text: 'Ok',
+            click: function () {
+                $('#hiddenconfname').val($('#confName').val());
+                $('#hiddengoal').val($('#goal').val());
+                $('#hiddenlocaloption').val($('input[name=localoption]').val());
+                $('#hiddenlocaloptionreason').val($('#localoptionreason').val());
+                $('#hiddenbeneficial').val($('#beneficial').val());
+                $('#hiddensharing').val($('#sharing').val());
+                $('#hiddengroupable').val($('input[name=groupable]').val());
+                $('#hiddendebrief').val($('input[name=debrief]').val());
+                $('#hiddencomments').val($('#comments').val());
+                $(this).dialog('close');
+            }
+        }]
+    });
+*/
+    function numberRows() {
+        var thisName,
+            splitName,
+            timestamp = Math.round((new Date()).getTime()),
+            newName;
+
+        $('.new-row').children().each(function () {
+
+            if (typeof $(this).attr('name') !== 'undefined') {
+            //if ($(this).attr('name') !== undefined) {
+
+                thisName = $(this).attr('name');
+                splitName = thisName.split('.');
+
+                newName = splitName[0] + '.' + timestamp + '.' + splitName[2];
+
+                $(this).prop('name', newName);
+            }
+        });
+        $('.new-row').attr('id', timestamp);
+    }
+
+    function numberTRWRows() {
+        var thisName,
+            splitName,
+            timestamp = Math.round((new Date()).getTime()),
+            newName;
+
+        $('.new-row').children().each(function () {
+
+            //if (typeof $(this).attr('name') !== 'undefined') {
+            if ($(this).attr('name') !== undefined) {
+
+                thisName = $(this).attr('name');
+                splitName = thisName.split('.');
+
+                newName = splitName[0] + '.' + timestamp + '.' + splitName[2];
+
+                $(this).prop('name', newName);
+            }
+        });
+        $('.new-row').attr('id', timestamp);
+    }
+
+    function numberTRWFin() {
+        //var numFinRows = $('#trw-body div.trw-row').length;
+        var numFinRows = 1;
+        $('.trw-row').children().each(function () {
+            if ($(this).hasClass('fin')) {
+                $(this).val(numFinRows);
+                numFinRows += 1;
+            }
+        });
+    }
+
+    function cloneFinCodesRowMaster() {
+        $('.financial-code-body div.row-master')
+            .clone()
+            .appendTo('.financial-code-body')
+            .last()
+            .removeClass('row-master')
+            .removeClass('hidden')
+            .addClass('new-row');
+
+        numberRows();
+
+        $('.new-row.fincodedata').first().focus();
+
+        $('.new-row').removeClass('new-row');
+    }
+
+    function cloneExpenseRowMaster() {
+        $('.expense-master')
+            .clone()
+            .appendTo('.expenseTableBody')
+            .last()
+            .removeClass('expense-master')
+            .removeClass('hidden')
+            .addClass('new-row');
+
+        numberRows();
+
+        $('.new-row.expenseData').first().focus();
+
+        $('.new-row').removeClass('new-row');
+    }
+
+    function cloneAkRowMaster() {
+        $('.onecardrow')
+            .clone()
+            .appendTo('.state-exp-body')
+            .last()
+            .removeClass('onecardrow')
+            .removeClass('hidden')
+            .addClass('new-row');
+
+        numberRows();
+
+        /*$('.new-row.onecardData').first().focus();*/
+
+        $('.new-row').removeClass('new-row');
+    }
+
+    function cloneTRWRowMaster() {
+        $('.trw-master')
+            .clone()
+            .appendTo('#trw-table #trw-body')
+            .last()
+            .removeClass('trw-master')
+            .removeClass('hidden')
+            .addClass('new-row')
+            .addClass('trw-row');
+
+        numberTRWRows();
+        numberTRWFin();
+
+        $('.new-row.trw').first().focus();
+
+        $('.new-row').removeClass('new-row');
+    }
+
+/*
+    function showQuestionnaire() {
+        if ($('#outstate').prop('checked')) {
+            $('#oosLink').css('display', 'inline-block');
+        } else if ($('#instate').prop('checked')) {
+            $('#oosLink').css('display', 'none');
+        }
+    }
+*/
+
+    function showTravAdvFields() {
+        if ($('#travadv').prop('checked')) {
+            $('.travadvData').css('display', 'initial');
+        } else if (!$('#travadv').prop('checked')) {
+            $('.travadvData').css('display', 'none');
+        }
+    }
+
+    /**
+    * @global
+    * @class Workflow Pdf View
+    * Shows a pdf from inside eDocs that is in a workflow and gives the user
+    * the option to Approve or Reject inside a jQuery-UI dialog box.
+    *
+    * @param {string} edocsId - eDocs dID and dDocName in space delimited order
+    * @param {string} dID - eDocs Document ID
+    * @param {string} dDocName - eDocs Document Name
+    */
+    function workflowPdfView(dID, dDocName) {
+        var currPage = 1,
+            myArray,
+            numPages = 0,
+            pdfDocument,
+            thePDF = null;
+
+        function b64ToUint6(nChr) {
+
+            return nChr > 64 && nChr < 91 ? nChr - 65 :
+                    nChr > 96 && nChr < 123 ? nChr - 71 :
+                            nChr > 47 && nChr < 58 ? nChr + 4 :
+                                    nChr === 43 ? 62 :
+                                            nChr === 47 ? 63 :
+                                                    0;
+
+        }
+
+        /*jslint regexp: true, bitwise: true*/
+        function base64DecToArr(sBase64, nBlocksSize) {
+
+            var
+                sB64Enc = sBase64.replace(/[^A-Za-z0-9\+\/]/g, ''),
+                nInLen = sB64Enc.length,
+                nOutLen = nBlocksSize ? Math.ceil((nInLen * 3 + 1 >> 2) / nBlocksSize) * nBlocksSize : nInLen * 3 + 1 >> 2,
+                taBytes = new Uint8Array(nOutLen),
+                nMod3,
+                nMod4,
+                nUint24 = 0,
+                nOutIdx = 0,
+                nInIdx = 0;
+
+            for (nMod3, nMod4, nUint24, nOutIdx, nInIdx; nInIdx < nInLen; nInIdx += 1) {
+                nMod4 = nInIdx & 3;
+                nUint24 |= b64ToUint6(sB64Enc.charCodeAt(nInIdx)) << 6 * (3 - nMod4);
+                if (nMod4 === 3 || nInLen - nInIdx === 1) {
+                    for (nMod3 = 0; nMod3 < 3 && nOutIdx < nOutLen; nMod3 += 1, nOutIdx += 1) {
+                        taBytes[nOutIdx] = nUint24 >>> (16 >>> nMod3 & 24) & 255;
+                    }
+                    nUint24 = 0;
+
+                }
+            }
+
+            return taBytes;
+        }
+        /*jslint regexp: false, bitwise: false*/
+
+        function handlePages(page) {
+            // This gives us the page's dimensions at full scale
+            var scale = 1.5,
+                viewport = page.getViewport(scale),
+                // We'll create a canvas for each page to draw it on
+                pdfRenderer = document.getElementById('pdfRenderer'),
+                canvas = document.createElement('canvas'),
+                context;
+
+            canvas.style.display = 'block';
+            context = canvas.getContext('2d');
+            canvas.height = viewport.height;
+            canvas.width = viewport.width;
+
+            pdfRenderer.appendChild(canvas); // add canvas to worklowPdf div
+
+            // Draw it on the canvas
+            page.render({canvasContext: context, viewport: viewport});
+
+            // Move to next page
+            currPage += 1;
+            if (thePDF !== null && currPage <= numPages) {
+                thePDF.getPage(currPage).then(handlePages);
+            }
+        }
+
+        pdfDocument = $.ajax({
+            url: './model/services/workflow_processes.cfc?method=getPDF',
+            type: 'POST',
+            data: {
+                dID: dID,
+                dDocName: dDocName
+            },
+            async: false
+        });
+
+        myArray = base64DecToArr(pdfDocument.responseText);
+
+        PDFJS.getDocument({data: myArray}).then(function (pdf) {
+            // Set PDFJS global object-so we can easily access in our page functions
+            thePDF = pdf;
+
+            // How many pages it has
+            numPages = pdf.numPages;
+
+            // Start with the first page
+            pdf.getPage(1).then(handlePages);
+        });
+
+        $('#workflowPdf').attr('title', dDocName).dialog({
+            modal: true,
+            width: 960,
+            height: 600,
+            resizable: true,
+            buttons: [
+                {
+                    text: 'Approve',
+                    click: function () {
+                        $.ajax({
+                            url: './model/services/workflow_processes.cfc?method=workflowApprove',
+                            type: 'POST',
+                            data: {
+                                dID: dID
+                            },
+                            dataType: 'json',
+                            success: function (data) {
+                                var status = data.STATUS;
+                                /*var status = data.STATUS,
+                                    message = data.MESSAGE;
+
+                                console.log(data);*/
+
+                                if (status === 'success') {
+                                    window.location.href = 'index.cfm?action=workflow';
+
+                                } else if (status === 'failure') {
+                                    window.location.href = 'index.cfm?action=workflow';
+
+                                }
+
+                            }
+                        });
+                        return false;
+                    }
+                },
+                {
+                    text: 'Reject',
+                    click: function () {
+                        console.log($('#pdfObject').css('z-index'));
+                        $('#pdfObject').attr('display', 'none');
+                        $('#rejectDialog').dialog({
+                            modal: true,
+                            width: 600,
+                            height: 400,
+                            resizable: true,
+                            buttons: [{
+                                text: 'Submit Rejection',
+                                click: function () {
+                                    $.ajax({
+                                        url: './model/services/workflow_processes.cfc?' +
+                                            'method=workflowReject',
+                                        type: 'POST',
+                                        data: {
+                                            dID: dID,
+                                            wfRejectMessage:
+                                                $('#rejectionReason').val()
+                                        },
+                                        dataType: 'json',
+                                        success: function (data) {
+                                            var status = data.STATUS,
+                                                message = data.MESSAGE;
+
+                                            console.log(message);
+
+                                            if (status === 'success') {
+                                                window.location.href = 'index.cfm?action=workflow';
+
+                                            } else if (status === 'failure') {
+                                                window.location.href = 'index.cfm?action=workflow';
+
+                                            }
+
+                                        }
+                                    });
+                                    return false;
+                                }
+                            },
+                                {
+                                    text: 'Cancel',
+                                    click: function () {
+                                        $(this).dialog('close');
+                                    }
+                                }
+                                ]
+                        });
+                        /*dialogOverPdf();*/
+                        return false;
+                    }
+                },
+                {
+                    text: 'Close',
+                    click: function () {
+                        $(this).dialog('close');
+                    }
+                }
+            ]
+
+        });
+        return false;
+    }
+
+/*
+    $('#oosLink, #outstate').on('click', function () {
+        $('#ooStateDialog').dialog('open');
+    });
+*/
+
+    /*$('#outstate, #instate').on('click', function () {
+        showQuestionnaire();
+    });*/
+
+    //showQuestionnaire();
+
+
+    $('#trw-table').on('change', 'select', function () {
+        var thisType = $(this).val(),
+            thisVal;
+
+        if (thisType === 'AIR') { thisVal = 72111; }
+        if (thisType === 'LODG') { thisVal = 72113; }
+        if (thisType === 'M&IE') { thisVal = 72114; }
+        if (thisType === 'OTHER') { thisVal = ''; }
+        if (thisType === 'REIMB') { thisVal = 72116; }
+        if (thisType === 'SURF') { thisVal = 72112; }
+
+        $(this).parent().find('.trw-aksas-num').val(thisVal);
+    });
+
+    /*$('#taFor').dialog({
+        autoOpen: false,
+        modal: true,
+        width: 386,
+        buttons: [
+            {
+                id: 'autoFill',
+                text: 'Autofill',
+                click: function () {
+                    var idNum = $('#uid').val();
+                    ldapAutoFill(idNum);
+                    $(this).dialog('close');
+                }
+            },
+            {
+                id: 'cancel',
+                text: 'Cancel',
+                click: function () {
+                    $('#cn').val('');
+                    $('#uid').val('');
+
+                    $(this).dialog('close');
+                }
+            }
+        ]
+    });*/
+
+    /*$('#autoFill').button('disable');*/
+    $('#uid').on('change', function () {
+        console.log('change');
+        if ($('#uid').val() !== '') {
+            console.log('Not Empty');
+            $('#autoFill').button('enable');
+        } else {
+            console.log('Empty!');
+            $('#autoFill').button('disable');
+        }
+    });
+
+    $('.autofillForYou').click(function () {
+        var idNum = $(this).attr('id');
+        ldapAutoFill(idNum);
+        return false;
+    });
+
+    $('.autofillForSomeone').click(function () {
+        $('#taFor').dialog('open');
+        return false;
+    });
+
+    $('#clearTaForm').click(function () {
+        $('.taForm')
+            .find('input[type=text], input[type=number], textarea')
+            .val('');
+    });
+
+    /*jslint unparam: true*/
+    /*$('#cn').autocomplete({
+        source:
+            './model/services/ldapfuncs.cfc?method=getLdapUser&returnFormat=json',
+        minlength: 2,
+        appendTo: '#wrap',
+        select: function (event, ui) {
+            $('#uid').val(ui.item.ein).trigger('change');
+        }
+    });*/
+
+    /*$('#staffCn').autocomplete({
+        [>appendTo: '.ui-front',<]
+        source:
+            './model/services/ldapfuncs.cfc?method=getLdapUser&returnFormat=json',
+        minlength: 2,
+        select: function (event, ui) {
+            $('#einStaff').val(ui.item.ein).trigger('change');
+            $('#firstName').val(ui.item.firstName);
+            $('#lastName').val(ui.item.lastName);
+            $('#email').val(ui.item.email);
+        }
+    });*/
+    /*jslint unparam: false*/
+
+    if ($('#physAddrNo').prop('checked')) {
+        $('#physAddr').css('display', 'none');
+    }
+
+    $('#physAddrNo').on('click', function () {
+        if ($(this).val() === 'No') {
+            $('#physAddr').css('display', 'none');
+        }
+    });
+
+    $('#physAddrYes').on('click', function () {
+        $('#physAddr').css('display', 'inherit');
+    });
+
+    /* $('#saveTa').click(function () { */
+    /*$('.taForm').validate({
+        rules: {
+            'ta.dob': {
+                date: true
+            }
+        },
+        messages: {
+            'ta.dob': 'Invalid date format. (MM/DD/YYYY)'
+        },
+        submitHandler: function (form) {
+            console.log(form);
+            var ein = $('#ein').val(),
+                okToSubmit = false;
+            $.ajax({
+                url: './model/services/ldapfuncs.cfc?method=checkUserExists',
+                type: 'POST',
+                async: false,
+                data: {
+                    employeeNumber: ein
+                },
+                success: function (result) {
+                    console.log(result);
+                    if (!result) {
+                        alert('User does not exist in LDAP.');
+                    } else if (result) {
+                        okToSubmit = true;
+                    } else {
+                        alert('Something went wrong, please try again.');
+                    }
+                }
+            });
+            if (okToSubmit === true) {
+                form.submit();
+            }
+            return false;
+        }
+    });*/
+
+    /* }); */
+
+    /*$('#cancel-dialog').dialog({
+        autoOpen: false,
+        modal: true,
+        width: 330,
+        buttons: {
+            'No, Stay on page': function () {
+                $(this).dialog('close');
+            },
+            'Yes, cancel': function () {
+                window.location.href = 'index.cfm';
+            }
+        },
+        close: function () {
+            $(this).dialog('close');
+        }
+    });*/
+
+    $('#cancelTa').click(function () {
+        $('#cancel-dialog').dialog('open');
+    });
+
+    $('#taReviewTable, #taReviewPreparedTable').on('click', '.updateTaBtn', function () {
+        var myId = $(this).closest('tr').attr('id'),
+            url = './index.cfm?action=ta.update',
+            form = $('<form action="' + url + '" method="post">' +
+                    '<input type="text" name="taId" value="' + myId +
+                    '" /></form>');
+        $('body').append(form);
+        $('form').submit();
+
+        return false;
+    });
+
+    $('#taReviewTable, #taReviewPreparedTable, #travelToEstimateDataTable').on('click', '.viewTaBtn', function () {
+        var myId = $(this).closest('tr').attr('id'),
+            url = './index.cfm?action=ta.view',
+            form = $('<form action="' + url + '" method="post">' +
+                    '<input type="text" name="taId" value="' + myId +
+                    '" /></form>');
+        $('body').append(form);
+        $('form').submit();
+
+
+        return false;
+    });
+
+
+
+    /*
+    $('#tripRangeDatepicker').datepicker({
+        numberOfMonths: 3,
+        showButtonPanel: true
+    });
+    */
+
+    /*$('#departureDate').datepicker({
+        numberOfMonths: 2,
+        onClose: function (selectedDate) {
+            $('#returnDate').datepicker(
+                'option',
+                'minDate',
+                selectedDate
+            );
+        }
+    });
+
+    $('#returnDate').datepicker({
+        numberOfMonths: 2
+    });
+
+    $('#taReviewTable').dataTable({
+        'jQueryUI': true,
+        'processing': true,
+        'ajax': './model/services/ta.cfc?method=getTaReviewList&type=yours',
+        'columns': [
+            { 'data' : 'tanumber' },
+            { 'data' : 'status' },
+            { 'data' : 'destination' },
+            { 'data' : 'actions' }
+        ]
+    });
+
+
+
+    $('#taReviewPreparedTable').dataTable({
+        'jQueryUI': true,
+        'processing': true,
+        'ajax': './model/services/ta.cfc?method=getTaReviewList&type=prepared',
+        'columns': [
+            { 'data' : 'tanumber' },
+            { 'data' : 'traveler' },
+            { 'data' : 'status' },
+            { 'data' : 'destination' },
+            { 'data' : 'actions' }
+
+        ]
+    });
+
+    $('#taReviewCompletedTable').dataTable({
+        'jQueryUI': true,
+        'processing': true,
+        'ajax': './model/services/ta.cfc?method=getTaReviewList&type=completed',
+        'columns': [
+            { 'data' : 'tanumber' },
+            { 'data' : 'traveler' },
+            { 'data' : 'status' },
+            { 'data' : 'destination' },
+            { 'data' : 'actions' }
+        ]
+    });*/
+
+    $('#addEditStaff').click(function () {
+        window.location.href = 'index.cfm?action=staff.list';
+    });
+
+    /*$('#staffListDataTable').dataTable({
+        'jQueryUI': true,
+        'processing': true,
+        'ajax': './model/services/staff.cfc?method=getStaffList',
+        [>'fnServerParams' : function (aoData) {
+        aoData.push({ 'name' : 'taId', 'value' : $('#taId').val() });
+        },<]
+        'rowCallback': function (nRow, iDisplayIndex) {
+            $(nRow).attr('id', iDisplayIndex[0]);
+            return nRow;
+        },
+        'columns': [
+            {'visible': false},
+            null,
+            null,
+            null,
+            null,
+            null
+        ]
+    }).makeEditable({
+        sUpdateURL: './model/services/staff.cfc?method=updateStaff',
+        sAddURL: './model/services/staff.cfc?method=addStaff',
+        sDeleteURL: './model/services/staff.cfc?method=deleteStaff',
+        sAddDeleteToolbarSelector: '.dataTables_length',
+        sAddNewRowOkButtonId: 'btnAddStaffNewRowOk',
+        oAddNewRowFormOptions: {width: 400}
+    });*/
+
+    /*$('#btnAddStaffNewRowOk').button('disable');*/
+    $('#einStaff').on('change', function () {
+        console.log('change');
+        if ($('#einStaff').val() !== '') {
+            console.log('Not Empty');
+            $('#btnAddStaffNewRowOk').button('enable');
+        } else {
+            console.log('Empty');
+            $('#btnAddStaffNewRowOk').button('disable');
+        }
+    });
+
+    $('#travelToEstimateDataTable').dataTable({
+        'jQueryUI': true,
+        'processing': true,
+        'ajax': './model/services/ta.cfc?method=getTasInEstimation',
+        'columns' : [
+            { 'data' : 'tanumber' },
+            { 'data' : 'traveler' },
+            { 'data' : 'bu' },
+            { 'data' : 'destination' },
+            { 'data' : 'submitted' },
+            { 'data' : 'actions' }
+        ]
+    }).on('click', '.estimateTa', function () {
+        var myId = $(this).closest('tr').attr('id'),
+            url = './index.cfm?action=travel.estimate',
+            form = $('<form action="' + url + '" method="post">' +
+                     '<input type="text" name="taId" value="' + myId +
+                     '" /></form>');
+        $('body').append(form);
+        $('form').submit();
+
+        return false;
+    }).on('click', '.viewTa', function () {
+        var myId = $(this).closest('tr').attr('id'),
+            url = './index.cfm?action=travel.view',
+            form = $('<form action="' + url + '" method="post">' +
+                    '<input type="text" name="taId" value="' + myId +
+                    '" /></form>');
+        $('body').append(form);
+        $('form').submit();
+
+        return false;
+    });
+
+    //$('.delete-ta').click(function () {
+        //alert('This feature is not yet implemented.');
+        //return false;
+    //});
+
+// travel.estimate.expense.report {
+
+    $('#addFincode').click(function () {
+        cloneFinCodesRowMaster();
+        return false;
+    });
+    $('#addExpense').click(function () {
+        cloneExpenseRowMaster();
+        return false;
+    });
+    $('#add-trw').click(function () {
+        cloneTRWRowMaster();
+        return false;
+    });
+    $('#addAkExpense').click(function () {
+        cloneAkRowMaster();
+        return false;
+    });
+
+    function calculateTotals() {
+        var miesum = 0,
+            lodgesum = 0,
+            surfothersum = 0,
+            othersum = 0,
+            topexpsum = 0,
+            atmwithdrawal = 0,
+            travadvwnamt = 0,
+            // expensedata = 0,
+            totduefmtrvlr = 0,
+            thisMileage = 0,
+            combinedMiles = 0,
+            thisMileageRate = 0,
+            combinedMileageAmount = 0,
+            mileageRate = $('#mileageRate').val(),
+            // totOneCard = 0,
+            oneCardSum = 0,
+            // surfmileagetotal = 0,
+            totalCost,
+            taxtravtotal = $('#taxtravtotal').val(),
+            taxtravnontax = $('#taxtravnontax').val(),
+            taxtravtaxable;
+
+        $('.miles').each(function () {
+            // add only if the value is a number
+            if (!isNaN(this.value) && this.value.length !== 0) {
+                /*console.log($(this).closest('tr').attr('id'));*/
+                thisMileage = $(this).val();
+                combinedMiles += parseFloat(thisMileage);
+                thisMileageRate = thisMileage * mileageRate;
+                $(this).parent().next('td').children().val(thisMileageRate.toFixed(2));
+
+                combinedMileageAmount += parseFloat(thisMileageRate);
+
+            }
+        });
+
+        $('#milestotal').html(combinedMiles);
+
+        $('#surfmileagetotal').html('&#36;' + combinedMileageAmount.toFixed(2));
+
+        $('.mieexp').each(function () {
+            if (!isNaN(this.value) && this.value.length !== 0) {
+                miesum += parseFloat(this.value);
+            }
+        });
+
+        $('#mietotal').html('&#36;' + miesum.toFixed(2));
+
+        $('.lodgingexp').each(function () {
+            // add only if the value is number
+            if (!isNaN(this.value) && this.value.length !== 0) {
+                lodgesum += parseFloat(this.value);
+            }
+        });
+
+        $('#lodgetotal').html('&#36;' + lodgesum.toFixed(2));
+
+        $('.surfotherexp').each(function () {
+            // add only if the value is number
+            if (!isNaN(this.value) && this.value.length !== 0) {
+                surfothersum += parseFloat(this.value);
+            }
+        });
+
+        $('#surfothertotal').html('&#36;' + surfothersum.toFixed(2));
+
+        $('.otherexp').each(function () {
+            // add only if the value is number
+            if (!isNaN(this.value) && this.value.length !== 0) {
+                othersum += parseFloat(this.value);
+            }
+        });
+
+        $('#othertotal').html('&#36;' + othersum.toFixed(2));
+
+        // Total Out of Pocket Expenses
+        topexpsum =
+            combinedMileageAmount +
+            miesum +
+            lodgesum +
+            surfothersum +
+            othersum;
+
+        //$('#totoopexp').html('&#36;' + topexpsum.toFixed(2));
+        $('#totoopexp').val(topexpsum.toFixed(2));
+
+        // Total Due to/From traveler
+        if ($('#atmwithdrawal').val() !== '') {
+            atmwithdrawal = $('#atmwithdrawal').val();
+        }
+        if ($('#travadvwnamt').val() !== '') {
+            travadvwnamt = $('#travadvwnamt').val();
+        }
+
+        //travadvwn = $('#travadvwn').val(),
+        //        console.log('topexpsum: ' + topexpsum);
+        //        console.log('atmwithdrawal: ' + atmwithdrawal);
+        //       console.log('travadvwn: ' + travadvwn);
+        totduefmtrvlr = topexpsum - atmwithdrawal - travadvwnamt;
+
+        $('#totduefromtrvlr').val(totduefmtrvlr.toFixed(2));
+
+        $('.oneCardAmount').each(function () {
+            if (!isNaN(this.value) && this.value.length !== 0) {
+                oneCardSum += parseFloat(this.value);
+            }
+        });
+
+        $('#statepaidexp').val((oneCardSum.toFixed(2)));
+
+        taxtravtaxable = taxtravtotal - taxtravnontax;
+
+        $('#taxtravtaxable').val(taxtravtaxable);
+
+        $('#totalTripExpense').val((topexpsum + oneCardSum).toFixed(2));
+
+        totalCost = topexpsum + oneCardSum;
+
+        return totalCost;
+    }
+
+    $('.estimate').click(function () {
+        var estCost = $('#est-cost').val(),
+            estCostPadding = 0.2,
+            totalCost = calculateTotals();
+
+        estCost = totalCost + (totalCost * estCostPadding);
+
+        $('#est-cost').val(estCost.toFixed(2));
+
+        return false;
+    });
+
+    $('.estimate-form').on('keyup', '.expenseData', function () {
+        calculateTotals();
+        validateEstimateForm();
+    });
+    $('.main').on('keyup', '#mileageRate', function () {
+        calculateTotals();
+    });
+
+    // Run it once on page load
+    cloneFinCodesRowMaster();
+    cloneExpenseRowMaster();
+    cloneAkRowMaster();
+    cloneTRWRowMaster();
+    numberTRWRows();
+    numberTRWFin();
+    // Clear out totals
+    calculateTotals();
+
+    $('.financial-code-table, #expenseTable, .state-exp-body, #trw-table').on('click', '.delete', function () {
+        // console.log($(this).closest('tbody').children('tr').length);
+        var thisTable = $(this).parent().parent().parent().parent().attr('id'),
+            thisId;
+
+        if (thisTable === undefined) {
+            thisTable = $(this).parent().parent().attr('class');
+        }
+        /*jslint unparam: true*/
+        if (thisTable === 'expenseTableBody') {
+            thisId = $(this).closest('.expenseRow').attr('id');
+            $('#delExpense').val(function (i, val) {
+                return val + (val ? ', ' : '') + thisId;
+            });
+            $(this).closest('.expenseRow').remove();
+
+        } else if (thisTable === 'state-exp-body') {
+            thisId = $(this).closest('.state-exp-row').attr('id');
+            $('#delOnecard').val(function (i, val) {
+                return val + (val ? ', ' : '') + thisId;
+            });
+            $(this).parent().remove();
+        } else if (thisTable === 'financial-code-body panel-body') {
+            thisId = $(this).parent().attr('id');
+            $('#delFincode').val(function (i, val) {
+                return val + (val ? ', ' : '') + thisId;
+            });
+            $(this).parent().remove();
+        } else if (thisTable === 'trw-body') {
+            thisId = $(this).closest('.trw-row').attr('id');
+            $('#del-trw').val(function (i, val) {
+                return val + (val ? ', ' : '') + thisId;
+            });
+            $(this).closest('.trw-row').remove();
+            numberTRWFin();
+        }
+        /*jslint unparam: false*/
+
+        if ($(this).closest('tbody').children('tr').length > 2) {
+            $(this).closest('tr').remove();
+        }
+    });
+
+// }
+
+    $('.add_row').click(function () { return false; });
+    $('.delete_row').click(function () { return false; });
+
+    if ($('#persTravNo').prop('checked')) {
+        $('#persTravDetails').addClass('ui-state-disabled');
+        $('#persTravDetails input').prop('disabled', true);
+    } else {
+        $('#persTravDetails').removeClass('ui-state-disabled');
+        $('#persTravDetails input').prop('disabled', false);
+    }
+
+    $('input[name="ta.persTrav"]').change(function () {
+        if ($(this).val() === 'no') {
+            $('#persTravDetails').addClass('ui-state-disabled');
+            $('#persTravDetails input').prop('disabled', true);
+        } else {
+            $('#persTravDetails').removeClass('ui-state-disabled');
+            $('#persTravDetails input').prop('disabled', false);
+        }
+    });
+
+    /*$('.eDocsForm').dialog({
+        autoOpen: false,
+        modal: true,
+        buttons: [
+            {
+                id: 'sendToEdocs',
+                text: 'Send To eDocs',
+                click: function () {
+                    var taId = $('#taid').val(),
+                        reviewerId = $('#reviewerid').val(),
+                        url = './index.cfm?action=travel.edocsUpload',
+                        form = $('<form action="' + url + '" method="post">' +
+                                '<input type="text" name="taid" value="' + taId + '" />' +
+                                '<input type="text" name="reviewerid" value="' + reviewerId +
+                                '"/></form>');
+                    $('body').append(form);
+                    $('form').submit();
+                    return false;
+                }
+            },
+            {
+                id: 'cancel',
+                text: 'Cancel',
+                click: function () {
+                    $('#reviewer').val('');
+                    $(this).dialog('close');
+                }
+            }
+        ],
+        close: function () {
+            $('#reviewer').val('');
+        }
+    });*/
+
+    $('.genPdf').click(function () {
+        $('.eDocsForm').dialog('open');
+    });
+
+    //$('#sendToEdocs').button('disable');
+
+    $('#reviewerid').on('change', function () {
+        if ($('#reviewerid').val() !== '') {
+            $('#sendToEdocs').button('enable');
+        } else {
+            $('#sendToEdocs').button('disable');
+        }
+    });
+
+    /*jslint unparam: true*/
+    /*$('#reviewer').autocomplete({
+        source: './model/services/ldapfuncs.cfc?method=getLdapUser&' +
+            'returnFormat=json',
+        minlength: 2,
+        appendTo: '#taView',
+        select: function (event, ui) {
+            $('#reviewerid').val(ui.item.id).trigger('change');
+        }
+    });*/
+    /*jslint unparam: false*/
+
+
+
+    $('#cancelEstimate').click(function () {
+        window.location.href = 'index.cfm?action=travel';
+    });
+
+    //$('.accordion').accordion({ heightStyle: 'content' });
+
+
+    $('.etravelLogin').click(function () {
+        var body = $('body');
+        $('.etravelLogin').addClass('waiting');
+        body.addClass('waiting');
+        window.open(
+            'https://dof.doa.alaska.gov/dof/resx/login',
+            '_blank',
+            'menubar=1,toolbar=1,titlebar=1,statusbar=1'
+        );
+        setTimeout(function () {
+            $('.etravelLogin').removeClass('waiting');
+            body.removeClass('waiting');
+        }, 3000);
+    });
+
+    $('#travadv').on('click', function () {
+        showTravAdvFields();
+    });
+
+    showTravAdvFields();
+
+    /* DISABLE BACKSPACE REDIRECT! */
+    $(document).keydown(function (e) {
+        var elid = $(document.activeElement).is('input:focus, textarea:focus');
+        if (e.keyCode === 8 && !elid) {
+            return false;
+        }
+    });
+
+    /*$('.rejectReasonDialog').dialog({
+        autoOpen: false,
+        modal: true,
+        width: 400,
+        height: 200,
+        resizable: true
+    });*/
+
+    $('#workflowTable').dataTable({
+        'jQueryUI': true,
+        'processing': true,
+        'ajax': './model/services/workflow_processes.cfc?method=getWorkflowData',
+        'columns' : [
+            { "data" : "tanumber" },
+            { "data" : "traveler" },
+            { "data" : "created" },
+            { "data" : "preparer" },
+            { "data" : "actions" }
+        ]
+    }).on('click', '.workflowPdfView', function () {
+        workflowPdfView(this.id, this.name);
+        return false;
+    });
+
+    $('#workflowApprovals').dataTable({
+        'jQueryUI': true,
+        'processing': true,
+        'ajax': './model/services/workflow_processes.cfc?method=getApprovedTas'
+    });
+
+});

@@ -1,0 +1,15 @@
+<div class="row text-center">
+  <h3 class="">Electronic Travel Authorization (eTA)</h3>
+  <a id="createTaBtn" class="btn btn-default" data-ui-sref="create">Create a Travel Authorization request.</a>
+  <h3 class="">Your TA's</h3>
+  <a class="btn btn-default" data-ui-sref="review">Review/Update your TAs</a>
+  <h3 data-ng-show="HomeCtrl.isadmin">Travel Planner Menu</h3>
+  <div data-ng-show="HomeCtrl.isadmin" class="btn-group-vertical" role="group">
+    <a class="btn btn-default" data-ui-sref="toestimate">Estimate/Send for Approval</a>
+    <a class="btn btn-default" data-ui-sref="approvals">Waiting for Approval</a>
+    <a class="btn btn-default" data-ui-sref="approved">Approved</a>
+    <a class="btn btn-default" data-ui-sref="staff">Staff Options</a>
+    <a class="btn btn-default" data-ui-sref="delete">Permanently Delete TA's</a>
+  </div>
+  <button data-ng-click="HomeCtrl.doBusy()"><span style="color: red;">Click</span></button>
+</div>

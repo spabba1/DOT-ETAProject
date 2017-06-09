@@ -1,0 +1,28 @@
+$dark-gray: #a0a0a0;
+$light-grayish-yellow: #eee8d5;
+
+$grid-columns: 24;
+$grid-gutter-width: 0;
+
+@import 'pdf_bootstrap';
+
+.row {
+  border-top-color: $dark-gray;
+  border-top-style: solid;
+  border-top-width: 1px;
+  clear: both;
+}
+
+.row:nth-of-type(1) {
+  border: 0;
+}
+
+.soa {
+  font-size: 130%;
+  font-weight: bold;
+}
+
+.ta-info-head {
+  background-color: $light-grayish-yellow;
+}
+

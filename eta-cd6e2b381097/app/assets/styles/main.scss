@@ -1,0 +1,856 @@
+@import './../libs/angular-busy-plus.css';
+@import './../libs/ngToast.css';
+@import './../libs/ngToast-animations.css';
+
+// @import './../libs/jquery.dataTables.css';
+@import './../libs/dataTables.bootstrap.css';
+@import './../libs/buttons.bootstrap.css';
+@import './../libs/scroller.bootstrap.css';
+
+$light-gray: #d0d0d0;
+$very-light-gray: #e5e5e5;
+$light-grayish-orange: #fdf6e3;
+$bright-black: #002b36;
+$black: #073642;
+$white: #eee8d5;
+$bright-white: #fdf6e3;
+$mostly-pure-yellow: #fc0;
+$very-pale-yellow: #ffc;
+$very-light-red: #ff8c8c;
+
+$yellow: #b58900;
+$orange: #cb4b16;
+$red: #dc322f;
+$magenta: #d33682;
+$violet: #6c71c4;
+$blue: #268bd2;
+$cyan: #2aa198;
+$green: #859900;
+
+//$grid-gutter-width: 20px;
+$grid-columns: 24;
+
+
+.col-xs-15,
+.col-sm-15,
+.col-md-15,
+.col-lg-15 {
+  min-height: 1px;
+  padding-left: 10px;
+  padding-right: 10px;
+  position: relative;
+}
+
+.col-xs-15 {
+  float: left;
+  width: 20%;
+}
+
+$icon-font-path: './../fonts/bootstrap/';
+
+@import 'bootstrap-custom';
+@import '../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/theme';
+@import 'dot-main-intranet-style';
+@import 'print_intra';
+@import 'stickyfooter';
+
+.container {
+  max-width: 1000px;
+}
+
+html,
+body {
+  font-size: 100%;
+}
+
+// http://stackoverflow.com/questions/17408815/fieldset-resizes-wrong-appears-to-have-unremovable-min-width-min-content/17863685#17863685
+@-moz-document url-prefix() {
+  fieldset {
+    display: table-cell;
+  }
+}
+
+.dot-footer {
+
+  .dot-footer-content {
+    .right {
+      float: right;
+    }
+
+    address {
+      font-style: inherit;
+      line-height: inherit;
+      margin-bottom: inherit;
+    }
+  }
+}
+
+
+.ng-cloak {
+  display: none;
+}
+
+html {
+  line-height: inherit;
+}
+
+// Bootstrap Overrides
+body {
+  font-size: inherit;
+  line-height: inherit;
+}
+
+label {
+  margin-bottom: 0;
+
+  .error {
+    .errors {
+      color: $red;
+      font-style: italic;
+    }
+  }
+}
+
+// !Bootstrap Overrides
+
+.navlink {
+  color: $mostly-pure-yellow;
+  font: 12px Arial,Helvetica,Tahoma,sans-serif;
+  padding-top: 8px;
+  text-decoration: none;
+
+  &:link,
+  &:visited {
+    color: $mostly-pure-yellow;
+    font: 12px Arial,Helvetica,Tahoma,sans-serif;
+    text-decoration: none;
+  }
+
+  &:hover {
+    color: $bright-white;
+    font: 12px Arial,Helvetica,Tahoma,sans-serif;
+    text-decoration: none;
+  }
+
+  &:active {
+    color: $mostly-pure-yellow;
+    font: 12px Arial,Helvetica,Tahoma,sans-serif;
+    text-decoration: none;
+  }
+}
+
+.btm-buttons {
+  padding-bottom: 12px;
+  padding-top: 12px;
+}
+
+.alert {
+  margin-bottom: 8px;
+  margin-top: 8px;
+}
+
+.center-modal {
+  height: 80%;
+  left: 18.5%;
+  margin-left: -10%;
+  position: fixed;
+  top: 10%;
+  width: 80%;
+  z-index: 1050;
+}
+
+
+.divider {
+  color: $bright-white;
+}
+
+//.dotHeader {
+//  background: url("../img/yellow-grad-bg.png") repeat scroll 0 0 transparent;
+//}
+
+.logout {
+  float: right;
+  font-size: 80%;
+  font-weight: bold;
+  margin-right: 8px;
+}
+
+.float-right {
+  float: right;
+}
+
+.float-left {
+  float: left;
+}
+
+form {
+  background-color: $light-grayish-orange;
+  transition: .5s linear all;
+
+  .ng-dirty.ng-invalid {
+    background: $red;
+    color: $white;
+  }
+}
+
+fieldset {
+  dialog-label {
+    width: inherit;
+  }
+
+  small {
+    color: graytext;
+    display: block;
+    font-size: 72%;
+    margin-left: 8px;
+  }
+}
+
+legend {
+  font-size: 129%;
+}
+
+input {
+  vertical-align: middle;
+}
+
+address {
+  font-style: normal;
+}
+
+.login {
+  background: linear-gradient(to bottom, $white 0%, $very-light-gray 100%); // W3C
+}
+
+
+.ta-form {
+  padding-bottom: 8px;
+
+  input {
+    font-size: 84%;
+    vertical-align: middle;
+  }
+}
+
+// ta.view
+
+.ta-view {
+  background-color: $light-grayish-orange;
+
+  div {
+    margin-top: 10px;
+
+    .view-expense-border-me {
+      border: 1px solid $light-gray;
+      height: 38px;
+      margin: initial;
+      text-align: center;
+    }
+
+    .view-expense-sub {
+      margin: initial;
+    }
+
+  }
+
+  .signature-block {
+    border-top: 1px solid $black;
+    margin-top: 45px;
+  }
+
+  .expense-block div {
+    margin: initial;
+  }
+
+
+  .ta-head {
+    background-color: $light-gray;
+    display: inline-block;
+    margin-left: -9px;
+    padding-right: 18px;
+    width: 100%;
+  }
+}
+
+.smaller-form-text {
+  font-size: .8em;
+}
+
+.ta-expense-header {
+  background-color: $light-gray;
+  font-size: 150%;
+  text-align: center;
+}
+
+.ta-header {
+  background-color: $light-gray;
+  display: inline-block;
+  font-size: 150%;
+  margin-left: -9px;
+  padding-right: 18px;
+  text-align: center;
+  width: 100%;
+}
+
+.ta-head-specific {
+  background-color: $light-gray;
+  padding-bottom: 3px;
+  padding-top: 3px;
+}
+
+.ta-head-specific-data {
+  display: inline-block;
+  width: 99px;
+}
+
+.view-border-me-head {
+  border: 1px solid $light-gray;
+  height: 64px;
+  text-align: center;
+}
+
+.view-border-me {
+  border: 1px solid $light-gray;
+  text-align: center;
+}
+
+.calculated-totals {
+  float: right;
+  width: 268px;
+}
+
+.not-exceed {
+  margin-top: 50px;
+}
+
+.expense-textarea {
+  margin-left: -10px;
+  width: 107%;
+}
+
+.estimate-buttons {
+  margin: 15px 0;
+}
+
+.estimate-datepicker {
+  margin-top: 18px;
+}
+
+.expense-row input,
+.expense-row select,
+.expense-row textarea
+.expense-row.delete,
+.state-exp-body input,
+.state-exp-body select,
+.state-exp-body textarea
+.state-exp-body.delete{
+  font-size: 100%;
+  outline: none;
+  padding-left: 1px;
+  padding-right: 1px;
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.expense-table {
+  input,
+  textarea {
+    padding: 0;
+  }
+}
+
+.vert-align-btm {
+  vertical-align: bottom;
+}
+
+.ta-view-label {
+  background-color: $light-gray;
+}
+
+.trw-row {
+  position: relative;
+
+  .trw-fin {
+    clear: both;
+ }
+}
+
+.trw-btn {
+  margin-left: 15px;
+  margin-top: 4px;
+}
+
+
+
+.delete {
+  cursor: pointer;
+  display: inline-block;
+  margin-top: 3px;
+}
+
+// alignment for table
+
+td {
+  div {
+    .delete {
+      left: 6px;
+      position: relative;
+      top: -2px;
+    }
+  }
+}
+
+.ta-info-head {
+  background-color: $white;
+  font-weight: bold;
+}
+
+// end ta.view
+.cancel-dialog,
+.ta-for {
+  display: none;
+}
+
+.cancel-dialog p {
+  text-align: center;
+}
+
+.fincodehead {
+  margin-left: 10px;
+  margin-right: 10px;
+  width: 470px;
+}
+
+.fincoderow td {
+  margin-left: 10px;
+  margin-right: 10px;
+  width: 230px;
+}
+
+.traveler-info div {
+
+  label {
+    display: block;
+  }
+
+  input {
+    width: 98%;
+  }
+}
+
+.req-info {
+  float: right;
+}
+//.reqInfo div {
+//  background-color: $light-grayish-orange;
+//  border: 1px solid #657b83;
+//  margin-top: -1px;
+
+//  label {}
+
+//  p {
+//    float: left;
+//    margin: 5px;
+//    text-align: left;
+//    width: 699px;
+//  }
+//}
+
+.radio-needed {
+  margin: 8px 0 0 7px;
+}
+
+div {
+
+  .radio-needed {
+
+    p {
+      margin: 0;
+    }
+
+    label {
+      display: inline-block;
+    }
+
+    input {
+      width: auto;
+    }
+  }
+}
+
+.preparer-space .input {
+  font-weight: bold;
+}
+
+.long-textarea {
+  textarea {
+    width: 99%;
+  }
+}
+
+// jquery ui dialog
+
+.ui-dialog .ui-dialog-titlebar {
+  padding: 0 1em;
+  position: relative;
+}
+
+.ui-widget {
+  font-family: inherit;
+  font-size: 1em;
+
+  input,
+  select,
+  textarea,
+  button {
+    font-family: inherit;
+    font-size: 1em;
+  }
+}
+
+.ui-button-text-only .ui-button-text {
+  padding: .1em .8em;
+}
+
+.ui-state-default,
+.ui-widget-content .ui-state-default,
+.ui-widget-header .ui-state-default {
+  color: inherit;
+  font-weight: 400;
+}
+
+.ui-widget-overlay {
+  background: $very-light-gray;
+}
+
+.ui-widget-content label {
+  display: inline-block;
+  margin-right: 3px;
+  text-align: right;
+  vertical-align: top;
+  width: 87px;
+}
+
+// Validation
+
+
+.has-error {
+  input {
+    background-color: $very-light-red;
+    border: 1px dotted $red;
+  }
+}
+
+
+.form-group .help-block {
+  display: none;
+}
+
+.form-group.has-error .help-block {
+  display: block;
+}
+
+.empty {
+  height: 46px;
+}
+
+.wide-input {
+  width: 100%;
+}
+
+.tight-input {
+  width: 93%;
+}
+
+.short-input {
+  width: 34%;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.exp-table textarea,
+.state-exp-table textarea {
+  height: 1em;
+}
+
+.table-full-width {
+  margin-left: auto;
+  margin-right: auto;
+  width: 940px;
+}
+
+.input-space {
+  display: inline-block;
+  margin-bottom: 8px;
+  margin-left: 3px;
+  margin-right: 3px;
+  width: 226px;
+}
+
+.wide-input-space {
+  display: inline-block;
+  margin-bottom: 8px;
+  margin-left: 3px;
+  margin-right: 3px;
+  width: 950px;
+}
+
+.little-padding-please {
+  padding-top: 16px;
+}
+
+.req-inc {
+  float: right;
+  margin-right: 190px;
+  margin-top: 27px;
+
+  label {
+    float: right;
+    padding-left: 9px;
+
+    input {
+      margin-left: 3px;
+    }
+  }
+}
+
+.financial-code-table {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.ta-num-div > span {
+  font-size: 128%;
+}
+
+.soa {
+  font-size: 180%;
+  font-weight: bold;
+}
+
+.etravel-login {
+  background: linear-gradient(to bottom, $very-pale-yellow 0%, $yellow 100%);
+  border-bottom: 2px solid $black;
+  border-left: 1px solid $black;
+  border-radius: 6px;
+  border-right: 1px solid $black;
+  cursor: pointer;
+  height: 40px;
+
+  &:hover {
+    background: $yellow;
+    border-bottom: 2px solid $black;
+    border-left: 1px solid $black;
+    border-radius: 6px;
+    border-right: 1px solid $black;
+    height: 40px;
+  }
+
+  &:active {
+    background: linear-gradient(to bottom, $yellow 0%, $very-pale-yellow 100%); // W3C
+    border-bottom: 1px solid $black;
+    border-left: 1px solid $black;
+    border-radius: 6px;
+    border-right: 1px solid $black;
+    height: 40px;
+    margin-bottom: 1px;
+  }
+
+  span {
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 16px;
+    margin-top: 9px;
+    text-align: center;
+    text-shadow: 0 1px $light-gray;
+  }
+}
+
+.waiting {
+  cursor: wait;
+}
+
+// Out of State
+
+//#ooStateDialog {
+.oo-state-dialog {
+  font-size: .8em;
+  margin: 16px;
+
+  input {
+    float: left;
+  }
+
+  label {
+    clear: right;
+    text-align: left;
+    width: inherit;
+  }
+
+  .radio-buttons {
+
+    label {
+      clear: none;
+      width: auto;
+    }
+
+    input {
+      float: none;
+    }
+  }
+
+  .oo-state-radios {
+
+    label {
+      float: left;
+      width: auto;
+    }
+
+    input {
+      margin-right: 10px;
+      margin-top: 3px;
+    }
+  }
+
+  hr {
+    clear: both;
+  }
+
+  div {
+    // width: 100%;
+    //    line-height: 2.2em;
+  }
+
+  fieldset {
+    border: 1px solid $light-gray;
+    margin: 8px;
+    padding: 8px;
+  }
+}
+
+.oo-state-modal .ui-dialog-buttonpane .ui-dialog-buttonset {
+  float: none;
+  text-align: center;
+}
+
+.oos-link {
+  display: none;
+}
+
+.ui-autocomplete {
+  z-index: 2000;
+}
+
+//button[disabled] {
+//  .view-ta {
+//    color: graytext;
+//    cursor: inherit;
+//  }
+//}
+
+.reject-dialog {
+  display: none;
+}
+
+.rejection-reason {
+  height: 90%;
+  margin-top: 8px;
+  width: 100%;
+}
+
+.rejected-text {
+  color: $red;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.trav-reimb-wrnt {
+  width: 70%;
+
+  div {
+    display: inline-block;
+  }
+}
+
+// Animations
+.view-animate-container {
+  position: relative;
+}
+
+.view-animate {
+
+  .ng-enter,
+  .ng-leave {
+    transition: all cubic-bezier(.250, .460, .450, .940) .2s;
+  }
+
+  .ng-enter {
+    opacity: 0;
+
+    .ng-enter-active {
+      opacity: 1;
+    }
+  }
+
+  .ng-leave {
+    .ng-leave-active {
+      opacity: 0;
+    }
+  }
+
+}
+
+
+#pdf {
+  border: 1px solid $black;
+}
+
+//
+// Breadcrumbs
+// --------------------------------------------------
+
+
+.breadcrumb {
+  background-color: $breadcrumb-bg;
+  border-radius: $border-radius-base;
+  list-style: none;
+  margin-bottom: $line-height-computed;
+  padding: $breadcrumb-padding-vertical $breadcrumb-padding-horizontal;
+
+  > li {
+    display: inline-block;
+
+    + li:before {
+      color: $breadcrumb-color;
+      content: "#{$breadcrumb-separator}\00a0"; // Unicode space added since inline-block means non-collapsing white-space
+      padding: 0 5px;
+    }
+  }
+
+  > .active {
+    color: $breadcrumb-active-color;
+  }
+}
+
+.ng-breadcrumbs {
+  display: inline;
+}
+
+// }
+
+// cg-busy {
+
+/*.fixed-center {
+    position: fixed;
+    top: 50%;
+}*/
